@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
-//import * as firebase from 'firebase/compat/app';
 
 @Component({
   selector: 'app-auth',
@@ -16,7 +15,7 @@ export class AuthComponent implements OnInit {
   public isLoading = false;
   public error = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService) {}
 
   public ngOnInit(): void {
     this.initAuthForm();
@@ -28,17 +27,19 @@ export class AuthComponent implements OnInit {
     const email = this.authForm.value.email;
     const password = this.authForm.value.password;
 
-    let authObs;
+    this.authService.login(email, password);
 
-    if (this.isLogin) {
-      authObs = this.authService.login(email, password);
-    } else {
-      authObs = this.authService.signup(email, password).then((result) => {
-        return result.user?.updateProfile({
-          displayName: 'client',
-        });
-      });
-    }
+    // let authObs;
+
+    // if (this.isLogin) {
+    //   authObs = this.authService.login(email, password);
+    // } else {
+    //   authObs = this.authService.signup(email, password).then((result) => {
+    //     return result.user?.updateProfile({
+    //       displayName: 'client',
+    //     });
+    //   });
+    // }
 
     // authObs.subscribe(
     //   () => {
@@ -51,10 +52,10 @@ export class AuthComponent implements OnInit {
     //   }
     // );
 
-    authObs.then((result) => {
-      console.log(result);
-      this.router.navigate(['app']);
-    });
+    // authObs.then((result) => {
+    //   console.log(result);
+    //   this.router.navigate(['app']);
+    // });
 
     this.authForm.reset();
   }
