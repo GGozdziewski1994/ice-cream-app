@@ -6,8 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { AngularFireModule } from '@angular/fire/compat';
 
 import { AppComponent } from './app.component';
-import { environment } from '@environments/environment';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +16,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     HttpClientModule,
     StoreModule.forRoot({}, {}),
-    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
