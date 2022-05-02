@@ -10,7 +10,6 @@ import { NavigationComponent } from './navigation/navigation.component';
   declarations: [ShellComponent, HeaderComponent, NavigationComponent],
   imports: [
     CommonModule,
-
     RouterModule.forChild([
       {
         path: '',

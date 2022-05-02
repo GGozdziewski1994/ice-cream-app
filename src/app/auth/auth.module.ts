@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { AuthComponent } from './auth.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [AuthComponent],
   imports: [
@@ -15,7 +14,6 @@ import { MatInputModule } from '@angular/material/input';
       },
     ]),
     CommonModule,
-    MatInputModule,
   ],
 })
 export class AuthModule {}

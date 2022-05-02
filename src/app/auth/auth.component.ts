@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '@shared/services/auth.service';
+import { AuthService } from '../shared/services/auth.service';
 //import * as firebase from 'firebase/compat/app';
 
 @Component({
@@ -15,7 +15,6 @@ export class AuthComponent implements OnInit {
   public isLogin = true;
   public isLoading = false;
   public error = '';
-  public roleOptions = [{ role: 'user' }, { role: 'author' }];
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -34,7 +33,7 @@ export class AuthComponent implements OnInit {
     if (this.isLogin) {
       authObs = this.authService.login(email, password);
     } else {
-      authObs = this.authService.signup(email, password).then(result => {
+      authObs = this.authService.signup(email, password).then((result) => {
         return result.user?.updateProfile({
           displayName: 'client',
         });
@@ -52,7 +51,7 @@ export class AuthComponent implements OnInit {
     //   }
     // );
 
-    authObs.then(result => {
+    authObs.then((result) => {
       console.log(result);
       this.router.navigate(['app']);
     });
@@ -69,8 +68,10 @@ export class AuthComponent implements OnInit {
   private initAuthForm() {
     this.authForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
-      // role: new FormControl(null, [!this.isLogin ? Validators.required : Validators.nullValidator]),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
     });
   }
 }
