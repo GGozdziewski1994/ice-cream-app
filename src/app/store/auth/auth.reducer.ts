@@ -4,7 +4,6 @@ import { AuthState } from './auth.state';
 
 const initialState: AuthState = {
   isAuth: false,
-  isClient: false,
 };
 
 export const authReducer = createReducer(
@@ -19,12 +18,6 @@ export const authReducer = createReducer(
     return {
       ...state,
       isAuth: false,
-    };
-  }),
-  on(AuthActions.setIsClient, (state) => {
-    return {
-      ...state,
-      isClient: true,
     };
   })
 );

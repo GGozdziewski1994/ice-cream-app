@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { CanActivate, UrlTree } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { take, map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { AppState } from 'src/app/store/app.state';
 
-const selectIsAuth = (state: AppState) => state.auth.isClient;
+const selectIsAuth = (state: AppState) => state.isLogged.isClient;
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class isClientGuard implements CanActivate {
   constructor(private store: Store<AppState>) {}
 
   canActivate():
@@ -19,9 +19,9 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     return this.store.select(selectIsAuth).pipe(
-      take(1),
-      map((isAuth) => {
-        if (isAuth) {
+      filter((isClient) => isClient),
+      map((isClient) => {
+        if (isClient) {
           return true;
         }
 

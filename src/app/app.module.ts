@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { AppState } from './store/app.state';
 import { authReducer } from './store/auth/auth.reducer';
+import { isLoggedReducer } from './store/isLoggedUser/isLoggedUser.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +20,10 @@ import { authReducer } from './store/auth/auth.reducer';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     HttpClientModule,
-    StoreModule.forRoot<AppState>({ auth: authReducer }),
+    StoreModule.forRoot<AppState>({
+      auth: authReducer,
+      isLogged: isLoggedReducer,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

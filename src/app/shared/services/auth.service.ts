@@ -7,6 +7,7 @@ import { AppState } from '../../store/app.state';
 import { User } from '../model/user';
 import { AuthActions } from '../../store/auth/auth.actions';
 import { Router } from '@angular/router';
+import { isLoggedActions } from 'src/app/store/isLoggedUser/isLoggedUser.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +27,6 @@ export class AuthService {
     return this.fireAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        console.log(result.user);
         if (result.user?.email) {
           const userData: User = {
             uid: result.user.uid,
@@ -38,9 +38,13 @@ export class AuthService {
           localStorage.setItem('userData', JSON.stringify(userData));
           this.store.dispatch(AuthActions.setAuth());
           if (userData.displayName === 'client') {
-            this.store.dispatch(AuthActions.setIsClient());
+            this.store.dispatch(isLoggedActions.setIsClient());
+          } else {
+            this.store.dispatch(isLoggedActions.setIsIceman());
           }
         }
+
+        this.router.navigate(['app']);
       });
   }
 
@@ -55,7 +59,9 @@ export class AuthService {
       localStorage.setItem('userData', JSON.stringify(userData));
       this.store.dispatch(AuthActions.setAuth());
       if (userData.displayName === 'client') {
-        this.store.dispatch(AuthActions.setIsClient());
+        this.store.dispatch(isLoggedActions.setIsClient());
+      } else {
+        this.store.dispatch(isLoggedActions.setIsIceman());
       }
     }
   }

@@ -2,30 +2,30 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { AppState } from 'src/app/store/app.state';
 
-const selectIsAuth = (state: AppState) => state.auth.isAuth;
+const selectIsAuth = (state: AppState) => state.isLogged.isIceman;
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private store: Store<AppState>) {}
+export class isIcemanGuard implements CanActivate {
+  constructor(private store: Store<AppState>) {}
 
-  public canActivate():
+  canActivate():
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
     return this.store.select(selectIsAuth).pipe(
-      filter((isAuth) => isAuth),
-      map((isAuth) => {
-        if (isAuth) {
+      filter((isIceman) => isIceman),
+      map((isIceman) => {
+        if (isIceman) {
           return true;
         }
 
-        return this.router.createUrlTree(['auth']);
+        return false;
       })
     );
   }
