@@ -8,8 +8,9 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 })
 export class NavigationComponent {
   public routingList = [
-    { link: '/', title: 'Dodaj dokument do akceptacji' },
-    { link: 'archive/add', title: 'Dodaj dokument do archiwum' },
-    { link: 'archive', title: 'Archiwum' },
+    { link: 'config', title: 'Konfiguracja możliwości' },
+    { link: 'new-client', title: 'Dodaj nowego klienta' },
   ];
+
+  public routinListClient = [];
 }
