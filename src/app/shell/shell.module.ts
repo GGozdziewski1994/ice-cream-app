@@ -18,14 +18,14 @@ import { isIcemanGuard } from '../shared/guards/isIceman.guard';
         component: ShellComponent,
         children: [
           {
-            path: '',
-            //canActivate: [isIcemanGuard],
+            path: 'iceman',
+            canActivate: [isIcemanGuard],
             loadChildren: async () =>
               (await import('../iceman/iceman.module')).IcemanModule,
           },
           {
-            path: '',
-            //canActivate: [isClientGuard],
+            path: 'client',
+            canActivate: [isClientGuard],
             loadChildren: async () =>
               (await import('../client/client.module')).ClientModule,
           },

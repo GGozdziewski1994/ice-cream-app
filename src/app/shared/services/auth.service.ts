@@ -39,20 +39,20 @@ export class AuthService {
           this.store.dispatch(AuthActions.setAuth());
           if (userData.displayName === 'client') {
             this.store.dispatch(isLoggedActions.setIsClient());
+            this.router.navigate(['app/client']);
           } else {
             this.store.dispatch(isLoggedActions.setIsIceman());
+            this.router.navigate(['app/iceman']);
           }
         }
-
-        this.router.navigate(['app']);
       });
   }
 
   public autoLogin() {
-    const userData: User = JSON.parse(localStorage.getItem('userData') || '');
+    const userData: User = JSON.parse(localStorage.getItem('userData') || '{}');
 
-    if (!userData) {
-      return;
+    if (!userData.email) {
+      this.router.navigate(['auth']);
     }
 
     if (userData.refreshToken) {

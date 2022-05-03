@@ -11,7 +11,7 @@ const selectIsAuth = (state: AppState) => state.isLogged.isIceman;
   providedIn: 'root',
 })
 export class isIcemanGuard implements CanActivate {
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   canActivate():
     | Observable<boolean | UrlTree>
@@ -25,7 +25,7 @@ export class isIcemanGuard implements CanActivate {
           return true;
         }
 
-        return false;
+        return this.router.createUrlTree(['auth']);
       })
     );
   }

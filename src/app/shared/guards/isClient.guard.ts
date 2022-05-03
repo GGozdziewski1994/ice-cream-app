@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, UrlTree } from '@angular/router';
+import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -11,7 +11,7 @@ const selectIsAuth = (state: AppState) => state.isLogged.isClient;
   providedIn: 'root',
 })
 export class isClientGuard implements CanActivate {
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   canActivate():
     | Observable<boolean | UrlTree>
@@ -25,7 +25,7 @@ export class isClientGuard implements CanActivate {
           return true;
         }
 
-        return false;
+        return this.router.createUrlTree(['auth']);
       })
     );
   }
