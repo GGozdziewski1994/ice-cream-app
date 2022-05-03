@@ -49,6 +49,14 @@ export class ShapeListComponent implements OnInit {
     this.initCapacityForm();
   }
 
+  public onRemoveIceCream(index: number) {
+    this.iceCreamOptions = this.iceCreamOptions.filter((el, i) => i !== index);
+  }
+
+  public onRemoveCapacity(index: number) {
+    this.capacityOptions = this.capacityOptions.filter((el, i) => i !== index);
+  }
+
   public onAddIceCream() {
     (<FormArray>this.iceCreamForm.get('iceCream')).push(
       new FormGroup({
@@ -65,11 +73,11 @@ export class ShapeListComponent implements OnInit {
     );
   }
 
-  public onRemoveIceCream(index: number) {
+  public onRemoveIceCreamFormArray(index: number) {
     (<FormArray>this.iceCreamForm.get('iceCream')).removeAt(index);
   }
 
-  public onRemoveCapacity(index: number) {
+  public onRemoveCapacityFormArray(index: number) {
     (<FormArray>this.capacityForm.get('capacity')).removeAt(index);
   }
 
