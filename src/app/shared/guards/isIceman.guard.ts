@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { AppState } from 'src/app/store/app.state';
 
-const selectIsAuth = (state: AppState) => state.isLogged.isIceman;
+const selectIsIceman = (state: AppState) => state.isLogged.isIceman;
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +18,7 @@ export class isIcemanGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.store.select(selectIsAuth).pipe(
+    return this.store.select(selectIsIceman).pipe(
       filter((isIceman) => isIceman),
       map((isIceman) => {
         if (isIceman) {

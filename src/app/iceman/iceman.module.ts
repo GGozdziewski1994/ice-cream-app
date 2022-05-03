@@ -7,6 +7,7 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { AddNewClientComponent } from './add-new-client/add-new-client.component';
 import { ShapeListComponent } from './shape-list/shape-list.component';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -18,10 +19,17 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild([
       {
         path: '',
         component: IcemanComponent,
+        children: [
+          {
+            path: 'new-client',
+            component: AddNewClientComponent,
+          },
+        ],
       },
     ]),
   ],

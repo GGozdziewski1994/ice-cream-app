@@ -11,13 +11,13 @@ import { AppState } from 'src/app/store/app.state';
 export class NavigationComponent {
   public isClient$ = this.store.select((state) => state.isLogged.isClient);
   public routingListIceman = [
-    { link: 'config', title: 'Konfiguracja możliwości' },
-    { link: 'new-client', title: 'Dodaj nowego klienta' },
+    { link: 'iceman/config', title: 'Konfiguracja możliwości' },
+    { link: 'iceman/new-client', title: 'Dodaj nowego klienta' },
   ];
   public routingListClient = [
-    { link: 'ice-cream-list', title: 'Lista wszystkich lodów' },
-    { link: 'favorite-ice-cream', title: 'Lista ulubionych lodów' },
-    { link: 'ice-cream-cart', title: 'Koszyk zamówienia' },
+    { link: 'client/ice-cream-list', title: 'Lista wszystkich lodów' },
+    { link: 'client/favorite-ice-cream', title: 'Lista ulubionych lodów' },
+    { link: 'client/ice-cream-cart', title: 'Koszyk zamówienia' },
   ];
 
   constructor(private store: Store<AppState>) {}

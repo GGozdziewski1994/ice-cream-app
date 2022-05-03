@@ -1,0 +1,28 @@
+<div class="container">
+  <div>
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+      <h2 class="title">{{ isLogin ? 'Login' : 'Add Client' }}</h2>
+      <div class="auth-control">
+        <label for="email">Mail</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email">
+      </div>
+      <div class="auth-control">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password">
+      </div>
+      <div class="actions">
+        <button
+          type="submit"
+          class="submit"
+          [disabled]="!authForm.valid"
+          >{{ isLogin ? 'Login' : 'Add new Client' }}</button>
+      </div>
+    </form>
+  </div>
+</div>

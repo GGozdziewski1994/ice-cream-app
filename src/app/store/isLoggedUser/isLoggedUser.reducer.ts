@@ -13,12 +13,14 @@ export const isLoggedReducer = createReducer(
     return {
       ...state,
       isClient: true,
+      isIceman: false,
     };
   }),
   on(isLoggedActions.setIsIceman, (state) => {
     return {
       ...state,
       isIceman: true,
+      isClient: false,
     };
   })
 );
