@@ -4,6 +4,11 @@ import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { IcemanComponent } from './iceman.component';
 import { OrderListComponent } from './order-list/order-list.component';
@@ -24,10 +29,15 @@ import { OrderItemComponent } from './order-summary/order-item/order-item.compon
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     SharedModule,
     MatButtonModule,
     MatCardModule,
     MatListModule,
+    MatChipsModule,
+    MatIconModule,
+    MatInputModule,
+    MatFormFieldModule,
     RouterModule.forChild([
       {
         path: '',

@@ -1,1 +1,78 @@
-<p>shape-list works!</p>
+<app-modal (emmiter)="onClose()">
+  <mat-card-header class="header">
+    <mat-card-title>Konfiguracja możliwości</mat-card-title>
+  </mat-card-header>
+  <div class="container">
+    <div class="container__item">
+      <mat-card-title>Nazwy lodów</mat-card-title>
+      <mat-chip-list>
+        <mat-chip *ngFor="let iceCream of iceCreamOptions">
+          {{ iceCream }}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+      </mat-chip-list>
+      <form [formGroup]="iceCreamForm" (ngSubmit)="onSubmitIceCream()">
+        <div formArrayName="iceCream">
+          <div *ngFor="let iceCream of iceCreamFormArray; let i = index" [formGroupName]="i">
+            <div>
+              <mat-form-field>
+                <mat-label>Add iceCream Name</mat-label>
+                <input formControlName="iceCream" matInput type="text">
+                <button (click)="onRemoveIceCream(i)" type="button" matSuffix mat-icon-button>
+                  <mat-icon matSuffix>remove_circle</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="iceCreamForm.value.iceCream.length > 0">
+          <button mat-raised-button color="primary" type="submit">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </form>
+      <button (click)="onAddIceCream()" mat-icon-button type="button">
+        <mat-icon>add_circle</mat-icon>
+      </button>
+    </div>
+    <div class="container__item">
+      <mat-card-title>Pojemność lodów</mat-card-title>
+      <mat-chip-list>
+        <mat-chip *ngFor="let capacity of capacityOptions">
+          {{ capacity }}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+      </mat-chip-list>
+      <form [formGroup]="capacityForm" (ngSubmit)="onSubmitCapacity()">
+        <div formArrayName="capacity">
+          <div *ngFor="let capacity of capacityFormArray; let i = index" [formGroupName]="i">
+            <div>
+              <mat-form-field>
+                <mat-label>Add capacity</mat-label>
+                <input matInput type="number" formControlName="capacity">
+                <button (click)="onRemoveCapacity(i)" type="button" matSuffix mat-icon-button>
+                  <mat-icon matSuffix>remove_circle</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="capacityForm.value.capacity.length > 0">
+          <button mat-raised-button color="primary" type="submit">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </form>
+      <button (click)="onAddCapacity()" mat-icon-button type="button">
+        <mat-icon>add_circle</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="actions">
+    <button (click)="onClose()" mat-raised-button>Cancel</button>
+  </div>
+</app-modal>

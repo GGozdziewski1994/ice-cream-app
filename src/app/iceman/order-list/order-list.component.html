@@ -5,9 +5,9 @@
   <mat-list *ngFor="let order of data; let i = index" class="order">
     <mat-list-item>{{ i + 1 }}</mat-list-item>
     <mat-list-item>{{ order.email }}</mat-list-item>
-    <mat-list-item *ngFor="let cream of order.iceCream">
-        <span>{{ cream.name }}</span>
-        <span>{{ cream.quantity }}</span>
+    <mat-list-item *ngFor="let ice of order.iceCream">
+        <span class="ice-name">{{ ice.name }}:</span>
+        <span>{{ ice.quantity }} l</span>
     </mat-list-item>
 </mat-list>
 </mat-card>

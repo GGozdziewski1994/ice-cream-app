@@ -1,0 +1,21 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+
+  &__item {
+    text-align: center;
+    width: 50%;
+  }
+}
+
+.header {
+  display: block;
+  text-align: center;
+  margin: 2rem;
+}
+
+.actions {
+  margin: 2rem;
+  text-align: center;
+}
