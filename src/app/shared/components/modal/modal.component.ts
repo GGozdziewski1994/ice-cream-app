@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -6,8 +11,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ModalComponent implements OnInit {
-  constructor() {}
+export class ModalComponent {
+  @Output() emmiter = new EventEmitter();
 
-  ngOnInit(): void {}
+  onClick() {
+    this.emmiter.next(null);
+  }
 }

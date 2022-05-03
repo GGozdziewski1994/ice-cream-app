@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-new-client',
@@ -6,8 +7,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./add-new-client.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddNewClientComponent implements OnInit {
-  constructor() {}
+export class AddNewClientComponent {
+  constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  public onClose() {
+    this.router.navigate(['app/iceman']);
+  }
 }

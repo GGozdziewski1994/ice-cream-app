@@ -1,1 +1,7 @@
-<app-authentication [isLogin]="false"></app-authentication>
+<app-modal (emmiter)="onClose()">
+  <app-authentication [isLogin]="false"></app-authentication>
+  <div class="actions">
+    <button (click)="onClose()" mat-raised-button color="basic">Cancel</button>
+  </div>
+</app-modal>
+
