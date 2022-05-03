@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.order-item {
+  width: 200px;
+  text-align: center;
+  margin: 1rem;
+}
