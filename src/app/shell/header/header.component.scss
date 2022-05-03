@@ -8,17 +8,9 @@
   box-shadow: 0 0.6rem 2rem $color-box-shadow-normal;
   background-color: $color-white;
 
-  &__img {
-    height: 4.8rem;
-
-    img {
-      height: 100%;
-    }
-  }
-
   &__container {
     position: relative;
-    margin: 0 auto;
+    margin: 0 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
