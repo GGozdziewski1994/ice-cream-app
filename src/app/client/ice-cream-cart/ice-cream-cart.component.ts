@@ -3,14 +3,11 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 @Component({
   selector: 'app-ice-cream-cart',
   templateUrl: './ice-cream-cart.component.html',
-  styleUrls: ['./ice-cream-cart.component.sass'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./ice-cream-cart.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IceCreamCartComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
