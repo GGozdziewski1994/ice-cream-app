@@ -7,6 +7,6 @@ import { ModalComponent } from './components/modal/modal.component';
 @NgModule({
   declarations: [AuthenticationComponent, ModalComponent],
   imports: [CommonModule, ReactiveFormsModule],
-  exports: [AuthenticationComponent],
+  exports: [AuthenticationComponent, ModalComponent],
 })
 export class SharedModule {}
