@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthenticationComponent } from './authentication/authentication.component';
+import { AuthenticationComponent } from './components/authentication/authentication.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
