@@ -3,9 +3,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as firebase from 'firebase/compat/app';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../store/app.state';
-import { User } from '../model/user';
-import { AuthActions } from '../../store/auth/auth.actions';
+import { AppState } from '../../../store/app.state';
+import { User } from '../../model/user';
+import { AuthActions } from '../../../store/auth/auth.actions';
 import { Router } from '@angular/router';
 import { isLoggedActions } from 'src/app/store/isLoggedUser/isLoggedUser.actions';
 
