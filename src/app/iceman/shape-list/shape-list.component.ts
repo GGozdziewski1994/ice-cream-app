@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { formArray } from 'src/app/shared/model/formArrat';
+import { IcemanService } from '../iceman.service';
 
 @Component({
   selector: 'app-shape-list',
@@ -9,12 +11,15 @@ import { formArray } from 'src/app/shared/model/formArrat';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShapeListComponent implements OnInit {
-  public iceCreamOptions: string[] = ['Truskawkowe', 'Czekoladowe', 'Wniliowe'];
-  public capacityOptions: number[] = [0.5, 1, 2, 3, 5];
+  public iceCreamOptions$!: Observable<any>;
+  public capacityOptions$!: Observable<any>;
 
-  constructor(private router: Router) {}
+  constructor(private icemanService: IcemanService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.iceCreamOptions$ = this.icemanService.getIceCreamList();
+    this.capacityOptions$ = this.icemanService.getCapacityList();
+  }
 
   public onClose() {
     this.router.navigate(['app/iceman']);
@@ -23,7 +28,7 @@ export class ShapeListComponent implements OnInit {
   public onSubmitIceCream(form: formArray[]) {
     form.forEach((iceCream) => {
       for (let value of Object.values(iceCream)) {
-        this.iceCreamOptions.push(value);
+        this.icemanService.addIceCream(value);
       }
     });
   }
@@ -31,16 +36,16 @@ export class ShapeListComponent implements OnInit {
   public onSubmitCapacity(form: formArray[]) {
     form.forEach((capacity) => {
       for (let value of Object.values(capacity)) {
-        this.capacityOptions.push(+value);
+        this.icemanService.addCapacity(value);
       }
     });
   }
 
-  public onRemoveIceCream(index: number) {
-    this.iceCreamOptions = this.iceCreamOptions.filter((_, i) => i !== index);
+  public onRemoveIceCream(iceCream: string) {
+    this.icemanService.removeIceCream(iceCream);
   }
 
-  public onRemoveCapacity(index: number) {
-    this.capacityOptions = this.capacityOptions.filter((_, i) => i !== index);
+  public onRemoveCapacity(capacity: string) {
+    this.icemanService.removeCapacity(capacity);
   }
 }

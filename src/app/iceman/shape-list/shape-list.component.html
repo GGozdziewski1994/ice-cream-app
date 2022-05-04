@@ -6,9 +6,9 @@
     <div class="container__item">
       <mat-card-title>Nazwy lodów</mat-card-title>
       <mat-chip-list>
-        <mat-chip *ngFor="let iceCream of iceCreamOptions; let i = index">
-          {{ iceCream }}
-          <button matChipRemove (click)="onRemoveIceCream(i)" type="button">
+        <mat-chip *ngFor="let iceCream of iceCreamOptions$ | async; let i = index">
+          {{ iceCream.payload.val() }}
+          <button matChipRemove (click)="onRemoveIceCream(iceCream.payload.key)" type="button">
             <mat-icon>cancel</mat-icon>
           </button>
         </mat-chip>
@@ -18,9 +18,9 @@
     <div class="container__item">
       <mat-card-title>Pojemność lodów</mat-card-title>
       <mat-chip-list>
-        <mat-chip *ngFor="let capacity of capacityOptions; let i = index">
-          {{ capacity }}
-          <button matChipRemove (click)="onRemoveCapacity(i)" type="button">
+        <mat-chip *ngFor="let capacity of capacityOptions$ | async; let i = index">
+          {{ capacity.payload.val() }}
+          <button matChipRemove (click)="onRemoveCapacity(capacity.payload.key)" type="button">
             <mat-icon>cancel</mat-icon>
           </button>
         </mat-chip>
