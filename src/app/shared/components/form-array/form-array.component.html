@@ -1,0 +1,23 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div formArrayName="name">
+    <div *ngFor="let form of formArray; let i = index" [formGroupName]="i">
+      <div>
+        <mat-form-field>
+          <mat-label>Add Name</mat-label>
+          <input formControlName="name" matInput type="text">
+          <button (click)="onRemoveFormArray(i)" type="button" matSuffix mat-icon-button>
+            <mat-icon matSuffix>remove_circle</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="form.value.name.length > 0">
+    <button mat-raised-button color="primary" type="submit">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</form>
+<button (click)="onAddFormArray()" mat-icon-button type="button">
+  <mat-icon>add_circle</mat-icon>
+</button>
