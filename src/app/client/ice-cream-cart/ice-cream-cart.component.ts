@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { Observable } from 'rxjs';
 import { Order } from 'src/app/shared/model/order';
+import { OrderActions } from 'src/app/store/order/order.actions';
 @Component({
   selector: 'app-ice-cream-cart',
   templateUrl: './ice-cream-cart.component.html',
@@ -23,5 +24,14 @@ export class IceCreamCartComponent implements OnInit {
 
   public onClose() {
     this.location.back();
+  }
+
+  public addIceCream(iceCream: Order) {
+    const order = { ...iceCream, amount: 1 };
+    this.store.dispatch(OrderActions.addOrder(order));
+  }
+
+  public removeIceCream(iceCream: Order) {
+    this.store.dispatch(OrderActions.removeIceCream(iceCream));
   }
 }

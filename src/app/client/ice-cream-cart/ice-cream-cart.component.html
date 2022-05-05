@@ -11,10 +11,10 @@
             </div>
           </div>
           <div class="iceCream__actions">
-            <button mat-stroked-button color="warn">
+            <button (click)="removeIceCream(order)" mat-stroked-button color="warn">
               <mat-icon>remove</mat-icon>
             </button>
-            <button mat-stroked-button color="warn">
+            <button (click)="addIceCream(order)" mat-stroked-button color="warn">
               <mat-icon>add</mat-icon>
             </button>
           </div>

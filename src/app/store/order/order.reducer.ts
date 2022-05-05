@@ -10,20 +10,20 @@ const initialState: OrderState = {
 export const orderReducer = createReducer(
   initialState,
   on(OrderActions.addOrder, (state, action) => {
-    const existingCartIndex = state.iceCream.findIndex(
-      (el) => el.name === action.name && el.capacity === action.capacity
+    const existingCartIceCreamIndex = state.iceCream.findIndex(
+      (ice) => ice.name === action.name && ice.capacity === action.capacity
     );
 
-    const existingCart = state.iceCream[existingCartIndex];
+    const existingIceCream = state.iceCream[existingCartIceCreamIndex];
     let updatedIceCrames;
 
-    if (existingCart) {
+    if (existingIceCream) {
       const updatedIceCrame = {
-        ...existingCart,
-        amount: existingCart.amount + action.amount,
+        ...existingIceCream,
+        amount: existingIceCream.amount + action.amount,
       };
       updatedIceCrames = [...state.iceCream];
-      updatedIceCrames[existingCartIndex] = updatedIceCrame;
+      updatedIceCrames[existingCartIceCreamIndex] = updatedIceCrame;
     } else {
       updatedIceCrames = state.iceCream.concat(action);
     }
@@ -31,6 +31,34 @@ export const orderReducer = createReducer(
       ...state,
       iceCream: updatedIceCrames,
       total: state.total + action.amount,
+    };
+  }),
+
+  on(OrderActions.removeIceCream, (state, action) => {
+    const existingCartIceCreamIndex = state.iceCream.findIndex(
+      (ice) => ice.name === action.name && ice.capacity === action.capacity
+    );
+
+    const existingIceCream = state.iceCream[existingCartIceCreamIndex];
+    let updatedIceCrames;
+
+    if (existingIceCream.amount === 1) {
+      updatedIceCrames = state.iceCream.filter(
+        (ice) => ice.name !== action.name
+      );
+    } else {
+      const updatedIceCrame = {
+        ...existingIceCream,
+        amount: existingIceCream.amount - 1,
+      };
+      updatedIceCrames = [...state.iceCream];
+      updatedIceCrames[existingCartIceCreamIndex] = updatedIceCrame;
+    }
+
+    return {
+      ...state,
+      iceCream: updatedIceCrames,
+      total: state.total - 1,
     };
   })
 );
