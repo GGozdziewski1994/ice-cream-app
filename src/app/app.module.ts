@@ -12,6 +12,7 @@ import { environment } from '../environments/environment';
 import { AppState } from './store/app.state';
 import { authReducer } from './store/auth/auth.reducer';
 import { isLoggedReducer } from './store/isLoggedUser/isLoggedUser.reducer';
+import { orderReducer } from './store/order/order.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { isLoggedReducer } from './store/isLoggedUser/isLoggedUser.reducer';
     StoreModule.forRoot<AppState>({
       auth: authReducer,
       isLogged: isLoggedReducer,
+      order: orderReducer,
     }),
   ],
   providers: [],
