@@ -35,15 +35,7 @@ export class AuthService {
             refreshToken: result.user.refreshToken,
           };
 
-          localStorage.setItem('userData', JSON.stringify(userData));
-          this.store.dispatch(AuthActions.setAuth());
-          if (userData.displayName === 'client') {
-            this.store.dispatch(isLoggedActions.setIsClient());
-            this.router.navigate(['app/client']);
-          } else {
-            this.store.dispatch(isLoggedActions.setIsIceman());
-            this.router.navigate(['app/iceman']);
-          }
+          this.setUser(userData);
         }
       });
   }
@@ -56,13 +48,7 @@ export class AuthService {
     }
 
     if (userData.refreshToken) {
-      localStorage.setItem('userData', JSON.stringify(userData));
-      this.store.dispatch(AuthActions.setAuth());
-      if (userData.displayName === 'client') {
-        this.store.dispatch(isLoggedActions.setIsClient());
-      } else {
-        this.store.dispatch(isLoggedActions.setIsIceman());
-      }
+      this.setUser(userData);
     }
   }
 
@@ -81,6 +67,18 @@ export class AuthService {
     localStorage.removeItem('userData');
     this.store.dispatch(AuthActions.setNotAuth());
     this.router.navigate(['auth']);
+  }
+
+  private setUser(userData: User) {
+    localStorage.setItem('userData', JSON.stringify(userData));
+    this.store.dispatch(AuthActions.setAuth());
+    if (userData.displayName === 'client') {
+      this.store.dispatch(isLoggedActions.setIsClient());
+      this.router.navigate(['app/client']);
+    } else {
+      this.store.dispatch(isLoggedActions.setIsIceman());
+      this.router.navigate(['app/iceman']);
+    }
   }
 }
 

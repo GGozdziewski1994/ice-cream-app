@@ -1,0 +1,26 @@
+.iceCream {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+
+  & h3 {
+    margin-left: 0.25rem;
+  }
+}
+
+.form {
+  text-align: right;
+  width: 80px;
+
+  &__input {
+    display: flex;
+    width: 80px;
+
+    & input {
+      width: 3rem;
+    }
+  }
+}
