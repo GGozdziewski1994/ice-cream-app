@@ -10,9 +10,26 @@ const initialState: OrderState = {
 export const orderReducer = createReducer(
   initialState,
   on(OrderActions.addOrder, (state, action) => {
+    const existingCartIndex = state.iceCream.findIndex(
+      (el) => el.name === action.name && el.capacity === action.capacity
+    );
+
+    const existingCart = state.iceCream[existingCartIndex];
+    let updatedIceCrames;
+
+    if (existingCart) {
+      const updatedIceCrame = {
+        ...existingCart,
+        amount: existingCart.amount + action.amount,
+      };
+      updatedIceCrames = [...state.iceCream];
+      updatedIceCrames[existingCartIndex] = updatedIceCrame;
+    } else {
+      updatedIceCrames = state.iceCream.concat(action);
+    }
     return {
       ...state,
-      iceCream: [...state.iceCream, action],
+      iceCream: updatedIceCrames,
       total: state.total + action.amount,
     };
   })
