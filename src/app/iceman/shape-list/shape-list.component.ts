@@ -4,6 +4,12 @@ import { Observable } from 'rxjs';
 import { formArray } from 'src/app/shared/model/formArrat';
 import { IcemanService } from '../iceman.service';
 
+export interface ResultDatabase {
+  payload: {
+    key: string;
+    val: () => string | number;
+  };
+}
 @Component({
   selector: 'app-shape-list',
   templateUrl: './shape-list.component.html',
