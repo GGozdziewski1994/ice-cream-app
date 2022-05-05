@@ -20,6 +20,20 @@ import { RouterModule } from '@angular/router';
       {
         path: '',
         component: ClientComponent,
+        children: [
+          {
+            path: '',
+            component: IceCreamListComponent,
+          },
+          {
+            path: 'favorite-ice-cream',
+            component: FavoriteIceCreamComponent,
+          },
+          {
+            path: 'ice-cream-cart',
+            component: IceCreamCartComponent,
+          },
+        ],
       },
     ]),
   ],
