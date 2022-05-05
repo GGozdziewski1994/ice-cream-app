@@ -30,6 +30,7 @@ export class IceCreamItemComponent implements OnInit {
 
   public onSubmit() {
     this.order = {
+      id: Math.random(),
       name: this.iceCream,
       ...this.orderForm.value,
     };
