@@ -9,9 +9,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { AuthenticationComponent } from './components/authentication/authentication.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { FormArrayComponent } from './components/form-array/form-array.component';
+import { SortPipe } from './pipes/sort.pipe';
 
 @NgModule({
-  declarations: [AuthenticationComponent, ModalComponent, FormArrayComponent],
+  declarations: [
+    AuthenticationComponent,
+    ModalComponent,
+    FormArrayComponent,
+    SortPipe,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -20,6 +26,11 @@ import { FormArrayComponent } from './components/form-array/form-array.component
     MatInputModule,
     MatFormFieldModule,
   ],
-  exports: [AuthenticationComponent, ModalComponent, FormArrayComponent],
+  exports: [
+    AuthenticationComponent,
+    ModalComponent,
+    FormArrayComponent,
+    SortPipe,
+  ],
 })
 export class SharedModule {}

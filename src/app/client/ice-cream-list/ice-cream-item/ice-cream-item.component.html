@@ -1,14 +1,26 @@
 <li class="iceCream">
   <div>
-    <h3>Ice Cream</h3>
+    <h3>{{ iceCream }}</h3>
   </div>
   <div>
     <form class="form">
-      <mat-form-field class="form__input">
-        <mat-label>Amount</mat-label>
-        <input matInput type="number" min="1" max="5" step="1" [defaultValue]="1">
-      </mat-form-field>
-      <button mat-raised-button>
+      <div class="form__options">
+        <div class="form__input">
+          <mat-form-field class="form__field">
+            <mat-label>Amount</mat-label>
+            <input matInput type="number" min="1" step="1" [defaultValue]="1">
+          </mat-form-field>
+        </div>
+        <div class="form__select">
+          <mat-form-field class="form__field">
+            <mat-label>Capacity</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let option of capacity" [value]="option">{{ option }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <button mat-raised-button type="submit">
         <mat-icon>add</mat-icon> Add
       </button>
     </form>

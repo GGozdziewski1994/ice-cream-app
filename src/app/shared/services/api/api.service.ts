@@ -20,8 +20,16 @@ export class ApiService {
     return this.iceCreamRef.snapshotChanges();
   }
 
+  public getIceCreamListName() {
+    return this.iceCreamRef.valueChanges();
+  }
+
   public getCapacityList() {
     return this.capacityRef.snapshotChanges();
+  }
+
+  public getCapacityListValue() {
+    return this.capacityRef.valueChanges();
   }
 
   public addIceCreamToList(iceCream: string) {

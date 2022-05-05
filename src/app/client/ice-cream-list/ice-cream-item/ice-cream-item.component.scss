@@ -13,14 +13,18 @@
 
 .form {
   text-align: right;
-  width: 80px;
 
-  &__input {
+  &__options {
     display: flex;
-    width: 80px;
+  }
 
-    & input {
-      width: 3rem;
-    }
+  &__input,
+  &__select {
+    margin-left: 1rem;
+    width: 80px;
+  }
+
+  &__field {
+    width: 100%;
   }
 }

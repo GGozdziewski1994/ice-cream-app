@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 import { ClientComponent } from './client.component';
 import { IceCreamListComponent } from './ice-cream-list/ice-cream-list.component';
@@ -12,6 +13,7 @@ import { FavoriteIceCreamComponent } from './favorite-ice-cream/favorite-ice-cre
 import { IceCreamCartComponent } from './ice-cream-cart/ice-cream-cart.component';
 import { RouterModule } from '@angular/router';
 import { IceCreamItemComponent } from './ice-cream-list/ice-cream-item/ice-cream-item.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { IceCreamItemComponent } from './ice-cream-list/ice-cream-item/ice-cream
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
+    MatSelectModule,
+    SharedModule,
     RouterModule.forChild([
       {
         path: '',

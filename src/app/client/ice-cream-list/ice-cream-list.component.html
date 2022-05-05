@@ -1,7 +1,15 @@
 <section class="iceCreamList">
   <div class="card">
     <ul>
-      <app-ice-cream-item></app-ice-cream-item>
+      <ng-container *ngIf="capacityList$ | async as capacityList; else loader" >
+        <ng-container *ngIf="iceCreamList$ | async as iceCreamList; else loader">
+          <app-ice-cream-item *ngFor="let iceCream of iceCreamList" [iceCream]="iceCream" [capacity]="capacityList | sort"></app-ice-cream-item>
+        </ng-container>
+      </ng-container>
     </ul>
   </div>
 </section>
+
+<ng-template #loader>
+  Loading...
+</ng-template>

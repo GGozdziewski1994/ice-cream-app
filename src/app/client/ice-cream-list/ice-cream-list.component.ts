@@ -15,7 +15,7 @@ export class IceCreamListComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.iceCreamList$ = this.apiService.getIceCreamList();
-    this.capacityList$ = this.apiService.getCapacityList();
+    this.iceCreamList$ = this.apiService.getIceCreamListName();
+    this.capacityList$ = this.apiService.getCapacityListValue();
   }
 }
