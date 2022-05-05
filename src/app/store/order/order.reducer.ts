@@ -3,9 +3,8 @@ import { OrderActions } from './order.actions';
 import { OrderState } from './order.state';
 
 const initialState: OrderState = {
-  name: '',
-  amount: 0,
-  capacity: 0,
+  iceCream: [],
+  total: 0,
 };
 
 export const orderReducer = createReducer(
@@ -13,9 +12,8 @@ export const orderReducer = createReducer(
   on(OrderActions.addOrder, (state, action) => {
     return {
       ...state,
-      name: action.name,
-      amount: action.amount,
-      capacity: action.capacity,
+      iceCream: [...state.iceCream, action],
+      total: state.total + action.amount,
     };
   })
 );

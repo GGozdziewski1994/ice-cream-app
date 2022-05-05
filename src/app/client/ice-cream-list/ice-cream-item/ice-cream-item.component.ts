@@ -6,9 +6,9 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Order } from 'src/app/shared/model/order';
 import { AppState } from 'src/app/store/app.state';
 import { OrderActions } from 'src/app/store/order/order.actions';
-import { OrderState } from 'src/app/store/order/order.state';
 
 @Component({
   selector: 'app-ice-cream-item',
@@ -17,7 +17,7 @@ import { OrderState } from 'src/app/store/order/order.state';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IceCreamItemComponent implements OnInit {
-  public order!: OrderState;
+  public order!: Order;
   public orderForm!: FormGroup;
   @Input() public iceCream!: string[];
   @Input() public capacity!: number[];
@@ -34,6 +34,7 @@ export class IceCreamItemComponent implements OnInit {
       ...this.orderForm.value,
     };
     this.sotre.dispatch(OrderActions.addOrder(this.order));
+    this.orderForm.reset();
   }
 
   private initOrderForm() {

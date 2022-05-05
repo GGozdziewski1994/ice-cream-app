@@ -1,5 +1,6 @@
+import { Order } from 'src/app/shared/model/order';
+
 export interface OrderState {
-  name: string;
-  amount: number;
-  capacity: number;
+  iceCream: Order[];
+  total: number;
 }

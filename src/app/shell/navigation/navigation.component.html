@@ -11,7 +11,7 @@
           <a [routerLink]="routingCartClient.link">
             <button class="button">
               <span>Order Cart</span>
-              <span class="button__badge">0</span>
+              <span class="button__badge">{{ total$ | async }}</span>
             </button>
           </a>
         </li>

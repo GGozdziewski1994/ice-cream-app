@@ -1,1 +1,33 @@
-<p>ice-cream-cart works!</p>
+<app-modal>
+  <div class="container">
+    <div class="iceCreams">
+      <ul *ngFor="let order of orders$ | async">
+        <li class="iceCream">
+          <div>
+            <h3 class="iceCream__name">{{ order.name }}</h3>
+            <div class="iceCream__summary">
+              <span class="iceCream__capacity">Capacity: {{ order.capacity }}</span>
+              <span class="iceCream__amount">X {{ order.amount }}</span>
+            </div>
+          </div>
+          <div class="iceCream__actions">
+            <button mat-stroked-button color="warn">
+              <mat-icon>remove</mat-icon>
+            </button>
+            <button mat-stroked-button color="warn">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="total">
+      <span>Total order</span>
+      <span>{{ total$ | async }}</span>
+    </div>
+    <div class="actions">
+      <button (click)="onClose()" mat-stroked-button color="warn">Close</button>
+      <button mat-raised-button color="primary">Order</button>
+    </div>
+  </div>
+</app-modal>
