@@ -1,14 +1,28 @@
 <nav>
-  <ul class="navlist">
+  <ul class="navContainer">
     <ng-container *ngIf="isClient$ | async">
-      <li *ngFor="let rout of routingListClient" class="navlist__item">
-        <a routerLink="{{ rout.link }}" routerLinkActive="active">{{ rout.title }}</a>
-      </li>
+      <div class="navlist">
+        <li *ngFor="let rout of routingListClient" class="navlist__item">
+          <a routerLink="{{ rout.link }}" routerLinkActive="active">{{ rout.title }}</a>
+        </li>
+      </div>
+      <div>
+        <li>
+          <a [routerLink]="routingCartClient.link">
+            <button class="button">
+              <span>Order Cart</span>
+              <span class="button__badge">0</span>
+            </button>
+          </a>
+        </li>
+      </div>
     </ng-container>
     <ng-container *ngIf="!(isClient$ | async)">
-      <li *ngFor="let rout of routingListIceman" class="navlist__item">
-        <a routerLink="{{ rout.link }}" routerLinkActive="active">{{ rout.title }}</a>
-      </li>
+      <div class="navlist">
+        <li *ngFor="let rout of routingListIceman" class="navlist__item">
+          <a routerLink="{{ rout.link }}" routerLinkActive="active">{{ rout.title }}</a>
+        </li>
+      </div>
     </ng-container>
   </ul>
 </nav>

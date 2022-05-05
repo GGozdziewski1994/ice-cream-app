@@ -17,8 +17,11 @@ export class NavigationComponent {
   public routingListClient = [
     { link: 'client', title: 'Lista wszystkich lodów' },
     { link: 'client/favorite-ice-cream', title: 'Lista ulubionych lodów' },
-    { link: 'client/ice-cream-cart', title: 'Koszyk zamówienia' },
   ];
+  public routingCartClient = {
+    link: 'client/ice-cream-cart',
+    title: 'Koszyk zamówienia',
+  };
 
   constructor(private store: Store<AppState>) {}
 }

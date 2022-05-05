@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 import { ShellComponent } from './shell.component';
 import { HeaderComponent } from './header/header.component';
@@ -16,6 +17,7 @@ import { isIcemanGuard } from '../shared/guards/isIceman.guard';
     CommonModule,
     MatCardModule,
     MatButtonModule,
+    MatIconModule,
     RouterModule.forChild([
       {
         path: '',
