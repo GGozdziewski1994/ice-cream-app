@@ -6,7 +6,9 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { map } from 'rxjs';
 import { Order } from 'src/app/shared/model/order';
+import { ClientService } from 'src/app/shared/services/client/client.service';
 import { AppState } from 'src/app/store/app.state';
 import { OrderActions } from 'src/app/store/order/order.actions';
 
@@ -19,10 +21,14 @@ import { OrderActions } from 'src/app/store/order/order.actions';
 export class IceCreamItemComponent implements OnInit {
   public order!: Order;
   public orderForm!: FormGroup;
+  public favoriteList$ = this.clientService.getFavoriteIceCream();
   @Input() public iceCream!: string;
   @Input() public capacity!: number[];
 
-  constructor(private sotre: Store<AppState>) {}
+  constructor(
+    private sotre: Store<AppState>,
+    private clientService: ClientService
+  ) {}
 
   ngOnInit(): void {
     this.initOrderForm();
@@ -39,13 +45,18 @@ export class IceCreamItemComponent implements OnInit {
   }
 
   public switchIsFavorite(name: string) {
-    const user = localStorage.getItem('userData');
-    let uid;
-    if (user) {
-      uid = JSON.parse(user).uid;
-    }
-    console.log(uid);
-    console.log(name);
+    this.clientService.addIceCreamToFavorite(name);
+    //this.favoriteList$.pipe(map((ice) => ice.map((ice) => console.log(ice))));
+
+    // const index = this.favoriteList.findIndex((el) => el.name === name);
+    // let iceCream = this.favoriteList[index];
+
+    // if (iceCream && iceCream.key) {
+    //   this.clientService.removeIceCreamToFavorite(iceCream.key);
+    //   this.sotre.dispatch(FavoriteListActions.removeFavoriteFromList(iceCream));
+    // } else {
+    //   this.clientService.addIceCreamToFavorite(name);
+    // }
   }
 
   private initOrderForm() {

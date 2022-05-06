@@ -13,6 +13,7 @@ import { AppState } from './store/app.state';
 import { authReducer } from './store/auth/auth.reducer';
 import { isLoggedReducer } from './store/isLoggedUser/isLoggedUser.reducer';
 import { orderReducer } from './store/order/order.reducer';
+import { favoriteListReducer } from './store/favoriteListClient/favoriteListClient.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,7 @@ import { orderReducer } from './store/order/order.reducer';
       auth: authReducer,
       isLogged: isLoggedReducer,
       order: orderReducer,
+      favoriteList: favoriteListReducer,
     }),
   ],
   providers: [],
