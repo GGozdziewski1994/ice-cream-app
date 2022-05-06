@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ClientService } from 'src/app/shared/services/client/client.service';
 
 @Component({
   selector: 'app-favorite-ice-cream',
@@ -7,7 +9,13 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavoriteIceCreamComponent implements OnInit {
-  constructor() {}
+  public capacityList$!: Observable<any>;
+  public favoriteIceCream$!: Observable<any>;
 
-  ngOnInit(): void {}
+  constructor(private clienService: ClientService) {}
+
+  ngOnInit(): void {
+    this.capacityList$ = this.clienService.getCapacityListValue();
+    this.favoriteIceCream$ = this.clienService.getFavoriteList();
+  }
 }

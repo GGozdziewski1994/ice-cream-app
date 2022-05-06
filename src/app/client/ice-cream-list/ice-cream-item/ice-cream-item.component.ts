@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
 import { Order } from 'src/app/shared/model/order';
 import { ClientService } from 'src/app/shared/services/client/client.service';
 import { AppState } from 'src/app/store/app.state';
@@ -24,6 +23,7 @@ export class IceCreamItemComponent implements OnInit {
   public favoriteList$ = this.clientService.getFavoriteIceCream();
   @Input() public iceCream!: string;
   @Input() public capacity!: number[];
+  @Input() public isFavorite!: boolean;
 
   constructor(
     private sotre: Store<AppState>,
@@ -45,7 +45,12 @@ export class IceCreamItemComponent implements OnInit {
   }
 
   public switchIsFavorite(name: string) {
-    this.clientService.addIceCreamToFavorite(name);
+    if (this.isFavorite) {
+      this.clientService.addIceCreamToFavorite(name);
+    } else {
+      this.clientService.removeIceCreamToFavorite('');
+    }
+
     //this.favoriteList$.pipe(map((ice) => ice.map((ice) => console.log(ice))));
 
     // const index = this.favoriteList.findIndex((el) => el.name === name);

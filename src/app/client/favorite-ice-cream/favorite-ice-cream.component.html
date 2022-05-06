@@ -1,1 +1,19 @@
-<p>favorite-ice-cream works!</p>
+<section class="iceCreamList">
+  <div class="card">
+    <ul>
+      <ng-container *ngIf="capacityList$ | async as capacityList; else loader" >
+        <ng-container *ngIf="favoriteIceCream$ | async as favoriteIceCream; else loader">
+          <app-ice-cream-item
+            *ngFor="let iceCream of favoriteIceCream"
+            [iceCream]="iceCream" [capacity]="capacityList | sort"
+            [isFavorite]="false">
+          </app-ice-cream-item>
+        </ng-container>
+      </ng-container>
+    </ul>
+  </div>
+</section>
+
+<ng-template #loader>
+  Loading...
+</ng-template>

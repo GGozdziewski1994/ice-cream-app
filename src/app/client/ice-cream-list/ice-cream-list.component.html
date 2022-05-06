@@ -3,7 +3,12 @@
     <ul>
       <ng-container *ngIf="capacityList$ | async as capacityList; else loader" >
         <ng-container *ngIf="iceCreamList$ | async as iceCreamList; else loader">
-          <app-ice-cream-item *ngFor="let iceCream of iceCreamList" [iceCream]="iceCream" [capacity]="capacityList | sort"></app-ice-cream-item>
+          <app-ice-cream-item
+            *ngFor="let iceCream of iceCreamList"
+            [iceCream]="iceCream"
+            [capacity]="capacityList | sort"
+            [isFavorite]="true">
+          </app-ice-cream-item>
         </ng-container>
       </ng-container>
     </ul>
