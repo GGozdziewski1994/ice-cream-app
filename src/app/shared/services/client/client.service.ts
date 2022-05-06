@@ -3,7 +3,7 @@ import {
   AngularFireDatabase,
   AngularFireList,
 } from '@angular/fire/compat/database';
-import { Store } from '@ngrx/store';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,12 +13,16 @@ export class ClientService {
   private capacityRef!: AngularFireList<any>;
   private favoriteIceCream!: AngularFireList<any>;
 
-  constructor(private db: AngularFireDatabase, private store: Store) {
+  constructor(private db: AngularFireDatabase) {
     this.iceCreamRef = this.db.list('ice-cream-option');
     this.capacityRef = this.db.list('capacity-option');
     const user = JSON.parse(localStorage.getItem('userData') || '{}');
     const uid = user.uid;
     this.favoriteIceCream = this.db.list(`users/${uid}`);
+  }
+
+  public sendOrder(date: any, order: any) {
+    return this.db.list(date).push(order);
   }
 
   public getIceCreamListName() {
@@ -30,7 +34,13 @@ export class ClientService {
   }
 
   public getFavoriteIceCream() {
-    return this.favoriteIceCream.snapshotChanges();
+    return this.favoriteIceCream.snapshotChanges().pipe(
+      map((el) =>
+        el.map((ice) => {
+          return { key: ice.key, name: ice.payload.val() };
+        })
+      )
+    );
   }
 
   public getFavoriteList() {

@@ -33,9 +33,8 @@ export const favoriteListReducer = createReducer(
   }),
 
   on(FavoriteListActions.removeFavoriteFromList, (state, action) => {
-    console.log('as');
     return {
-      favorite: [...state.favorite],
+      favorite: [...state.favorite.filter((ice) => ice.key === action.key)],
     };
   })
 );

@@ -3,12 +3,15 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   Input,
+  OnDestroy,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
 import { Order } from 'src/app/shared/model/order';
 import { ClientService } from 'src/app/shared/services/client/client.service';
 import { AppState } from 'src/app/store/app.state';
+import { FavoriteListActions } from 'src/app/store/favoriteListClient/favoriteListClient.actions';
 import { OrderActions } from 'src/app/store/order/order.actions';
 
 @Component({
@@ -17,13 +20,14 @@ import { OrderActions } from 'src/app/store/order/order.actions';
   styleUrls: ['./ice-cream-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IceCreamItemComponent implements OnInit {
+export class IceCreamItemComponent implements OnInit, OnDestroy {
   public order!: Order;
   public orderForm!: FormGroup;
-  public favoriteList$ = this.clientService.getFavoriteIceCream();
+  public favoriteList!: { key: string | any; name: string }[];
   @Input() public iceCream!: string;
   @Input() public capacity!: number[];
   @Input() public isFavorite!: boolean;
+  private subscription!: Subscription;
 
   constructor(
     private sotre: Store<AppState>,
@@ -32,6 +36,13 @@ export class IceCreamItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.initOrderForm();
+    this.subscription = this.clientService
+      .getFavoriteIceCream()
+      .subscribe((ice) => (this.favoriteList = ice));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   public onSubmit() {
@@ -45,23 +56,15 @@ export class IceCreamItemComponent implements OnInit {
   }
 
   public switchIsFavorite(name: string) {
-    if (this.isFavorite) {
-      this.clientService.addIceCreamToFavorite(name);
+    const index = this.favoriteList.findIndex((el) => el.name === name);
+    const iceCream = this.favoriteList[index];
+
+    if (iceCream && iceCream.key) {
+      this.clientService.removeIceCreamToFavorite(iceCream.key);
+      this.sotre.dispatch(FavoriteListActions.removeFavoriteFromList(iceCream));
     } else {
-      this.clientService.removeIceCreamToFavorite('');
+      this.clientService.addIceCreamToFavorite(name);
     }
-
-    //this.favoriteList$.pipe(map((ice) => ice.map((ice) => console.log(ice))));
-
-    // const index = this.favoriteList.findIndex((el) => el.name === name);
-    // let iceCream = this.favoriteList[index];
-
-    // if (iceCream && iceCream.key) {
-    //   this.clientService.removeIceCreamToFavorite(iceCream.key);
-    //   this.sotre.dispatch(FavoriteListActions.removeFavoriteFromList(iceCream));
-    // } else {
-    //   this.clientService.addIceCreamToFavorite(name);
-    // }
   }
 
   private initOrderForm() {
