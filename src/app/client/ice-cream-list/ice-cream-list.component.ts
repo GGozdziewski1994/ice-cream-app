@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiService } from 'src/app/shared/services/api/api.service';
+import { ClientService } from 'src/app/shared/services/client/client.service';
 
 @Component({
   selector: 'app-ice-cream-list',
@@ -12,10 +12,10 @@ export class IceCreamListComponent implements OnInit {
   public iceCreamList$!: Observable<any>;
   public capacityList$!: Observable<any>;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private clienServices: ClientService) {}
 
   ngOnInit(): void {
-    this.iceCreamList$ = this.apiService.getIceCreamListName();
-    this.capacityList$ = this.apiService.getCapacityListValue();
+    this.iceCreamList$ = this.clienServices.getIceCreamListName();
+    this.capacityList$ = this.clienServices.getCapacityListValue();
   }
 }

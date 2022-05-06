@@ -1,6 +1,11 @@
 <li class="iceCream">
   <div>
     <h3>{{ iceCream }}</h3>
+    <div>
+      <button (click)="switchIsFavorite(iceCream)" mat-icon-button color="basic">
+        <mat-icon>favorite</mat-icon>
+      </button>
+    </div>
   </div>
   <div>
     <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">

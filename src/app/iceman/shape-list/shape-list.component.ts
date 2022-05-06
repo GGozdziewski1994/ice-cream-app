@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { formArray } from 'src/app/shared/model/formArrat';
-import { IcemanService } from '../iceman.service';
+import { IcemanService } from '../../shared/services/iceman/iceman.service';
 
 export interface ResultDatabase {
   payload: {
@@ -34,7 +34,7 @@ export class ShapeListComponent implements OnInit {
   public onSubmitIceCream(form: formArray[]) {
     form.forEach((iceCream) => {
       for (let value of Object.values(iceCream)) {
-        this.icemanService.addIceCream(value);
+        this.icemanService.addIceCreamToList(value);
       }
     });
   }
@@ -42,7 +42,7 @@ export class ShapeListComponent implements OnInit {
   public onSubmitCapacity(form: formArray[]) {
     form.forEach((capacity) => {
       for (let value of Object.values(capacity)) {
-        this.icemanService.addCapacity(value);
+        this.icemanService.addCapacityToList(value);
       }
     });
   }

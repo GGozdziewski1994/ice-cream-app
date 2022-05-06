@@ -19,7 +19,7 @@ import { OrderActions } from 'src/app/store/order/order.actions';
 export class IceCreamItemComponent implements OnInit {
   public order!: Order;
   public orderForm!: FormGroup;
-  @Input() public iceCream!: string[];
+  @Input() public iceCream!: string;
   @Input() public capacity!: number[];
 
   constructor(private sotre: Store<AppState>) {}
@@ -36,6 +36,16 @@ export class IceCreamItemComponent implements OnInit {
     };
     this.sotre.dispatch(OrderActions.addOrder(this.order));
     this.orderForm.reset();
+  }
+
+  public switchIsFavorite(name: string) {
+    const user = localStorage.getItem('userData');
+    let uid;
+    if (user) {
+      uid = JSON.parse(user).uid;
+    }
+    console.log(uid);
+    console.log(name);
   }
 
   private initOrderForm() {
