@@ -12,7 +12,7 @@ import { IceCreamListComponent } from './ice-cream-list/ice-cream-list.component
 import { FavoriteIceCreamComponent } from './favorite-ice-cream/favorite-ice-cream.component';
 import { IceCreamCartComponent } from './ice-cream-cart/ice-cream-cart.component';
 import { RouterModule } from '@angular/router';
-import { IceCreamItemComponent } from './ice-cream-list/ice-cream-item/ice-cream-item.component';
+import { IceCreamItemComponent } from './ice-cream-item/ice-cream-item.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
