@@ -7,11 +7,10 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Order } from 'src/app/shared/model/order';
 import { ClientService } from 'src/app/shared/services/client/client.service';
 import { AppState } from 'src/app/store/app.state';
-import { FavoriteListActions } from 'src/app/store/favoriteListClient/favoriteListClient.actions';
 import { OrderActions } from 'src/app/store/order/order.actions';
 
 @Component({
@@ -27,7 +26,7 @@ export class IceCreamItemComponent implements OnInit, OnDestroy {
   @Input() public iceCream!: string;
   @Input() public capacity!: number[];
   @Input() public isFavorite!: boolean;
-  private subscription!: Subscription;
+  private subscribction!: Subscription;
 
   constructor(
     private sotre: Store<AppState>,
@@ -36,13 +35,13 @@ export class IceCreamItemComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initOrderForm();
-    this.subscription = this.clientService
+    this.subscribction = this.clientService
       .getFavoriteIceCream()
       .subscribe((ice) => (this.favoriteList = ice));
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscribction.unsubscribe();
   }
 
   public onSubmit() {
@@ -59,12 +58,33 @@ export class IceCreamItemComponent implements OnInit, OnDestroy {
     const index = this.favoriteList.findIndex((el) => el.name === name);
     const iceCream = this.favoriteList[index];
 
-    if (iceCream && iceCream.key) {
+    if (iceCream) {
       this.clientService.removeIceCreamToFavorite(iceCream.key);
-      this.sotre.dispatch(FavoriteListActions.removeFavoriteFromList(iceCream));
+      //this.sotre.dispatch(FavoriteListActions.removeFavoriteFromList(iceCream));
     } else {
       this.clientService.addIceCreamToFavorite(name);
     }
+
+    // this.clientService
+    //   .getFavoriteIceCream()
+    //   .pipe(
+    //     take(1),
+    //     map((el) => {
+    //       return {
+    //         isFav: el.some((ice) => ice.name === name),
+    //         name: el,
+    //       };
+    //     })
+    //   )
+    //   .subscribe((ice) => {
+    //     console.log(ice);
+    //     if (ice.isFav) {
+    //       console.log(key, name);
+    //       this.clientService.removeIceCreamToFavorite(key);
+    //     } else {
+    //       this.clientService.addIceCreamToFavorite(name);
+    //     }
+    //   });
   }
 
   private initOrderForm() {

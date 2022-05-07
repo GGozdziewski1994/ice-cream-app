@@ -12,17 +12,34 @@ export class ClientService {
   private iceCreamRef!: AngularFireList<any>;
   private capacityRef!: AngularFireList<any>;
   private favoriteIceCream!: AngularFireList<any>;
+  private lastOrder!: AngularFireList<any>;
 
   constructor(private db: AngularFireDatabase) {
     this.iceCreamRef = this.db.list('ice-cream-option');
     this.capacityRef = this.db.list('capacity-option');
     const user = JSON.parse(localStorage.getItem('userData') || '{}');
     const uid = user.uid;
-    this.favoriteIceCream = this.db.list(`users/${uid}`);
+    this.favoriteIceCream = this.db.list(`users/${uid}/favorite`);
+    this.lastOrder = this.db.list(`users${uid}/order`);
   }
 
   public sendOrder(date: any, order: any) {
     return this.db.list(date).push(order);
+  }
+
+  public getLastOrder() {
+    return this.lastOrder.snapshotChanges().pipe(
+      map((el) => {
+        el.map((ice) => {
+          return { key: ice.key, name: ice.payload.val() };
+        });
+      })
+    );
+  }
+
+  public setLastOrder(order: { key: string; name: string }[]) {
+    this.lastOrder.remove();
+    this.lastOrder.push(order);
   }
 
   public getIceCreamListName() {
