@@ -4,6 +4,7 @@ import {
   AngularFireList,
 } from '@angular/fire/compat/database';
 import { map } from 'rxjs';
+import { Order } from '../../model/order';
 
 @Injectable({
   providedIn: 'root',
@@ -13,31 +14,28 @@ export class ClientService {
   private capacityRef!: AngularFireList<any>;
   private favoriteIceCream!: AngularFireList<any>;
   private lastOrder!: AngularFireList<any>;
+  private email!: string;
 
   constructor(private db: AngularFireDatabase) {
     this.iceCreamRef = this.db.list('ice-cream-option');
     this.capacityRef = this.db.list('capacity-option');
     const user = JSON.parse(localStorage.getItem('userData') || '{}');
     const uid = user.uid;
+    this.email = user.email;
     this.favoriteIceCream = this.db.list(`users/${uid}/favorite`);
-    this.lastOrder = this.db.list(`users${uid}/order`);
+    this.lastOrder = this.db.list(`users/${uid}/order`);
   }
 
-  public sendOrder(date: any, order: any) {
-    return this.db.list(date).push(order);
+  public sendOrder(date: any, order: Order[]) {
+    this.db.list(date).push({ user: this.email, order });
+    this.setLastOrder(order);
   }
 
   public getLastOrder() {
-    return this.lastOrder.snapshotChanges().pipe(
-      map((el) => {
-        el.map((ice) => {
-          return { key: ice.key, name: ice.payload.val() };
-        });
-      })
-    );
+    return this.lastOrder.snapshotChanges();
   }
 
-  public setLastOrder(order: { key: string; name: string }[]) {
+  public setLastOrder(order: Order[]) {
     this.lastOrder.remove();
     this.lastOrder.push(order);
   }

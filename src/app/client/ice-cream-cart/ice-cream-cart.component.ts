@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
-import { Observable } from 'rxjs';
+import { map, Observable, take } from 'rxjs';
 import { Order } from 'src/app/shared/model/order';
 import { OrderActions } from 'src/app/store/order/order.actions';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -31,11 +31,13 @@ export class IceCreamCartComponent implements OnInit {
   }
 
   public onSubmit() {
-    const year = new Date().getFullYear();
-    const month = new Date().getMonth() + 1;
-    const day = new Date().getDay() + 1;
-    const date = `${year}-${month}-${day}`;
-    this.clientService.sendOrder(date, 'order');
+    const date = this.getDate();
+    this.orders$.pipe(take(1)).subscribe((order) => {
+      this.clientService.sendOrder(date, order);
+      order.map((el) => this.store.dispatch(OrderActions.removeIceCream(el)));
+    });
+
+    this.onClose();
   }
 
   public onClose() {
@@ -57,5 +59,12 @@ export class IceCreamCartComponent implements OnInit {
       amount: new FormControl(null),
       capacity: new FormControl(null),
     });
+  }
+
+  private getDate() {
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth() + 1;
+    const day = new Date().getDay() + 1;
+    return `${year}-${month}-${day}`;
   }
 }
