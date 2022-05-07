@@ -20,17 +20,16 @@ export class IcemanService {
 
   public getOrdersList() {
     const date = this.getDate();
-    console.log(date);
     return this.db
       .list(`orders/${date}`)
       .valueChanges()
       .pipe(
         take(1),
         map((el: any) =>
-          el.map((el: UserOrder) => {
+          el.map((order: UserOrder) => {
             return {
-              user: el.user,
-              order: el.order,
+              user: order.user,
+              order: order.order,
             };
           })
         )

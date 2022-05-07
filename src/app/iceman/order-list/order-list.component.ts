@@ -1,11 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UserOrder } from 'src/app/shared/model/userOrde';
 import { IcemanService } from 'src/app/shared/services/iceman/iceman.service';
-
-interface Data {
-  email: string;
-  iceCream: { name: string; quantity: number }[];
-}
 
 @Component({
   selector: 'app-order-list',
@@ -14,7 +10,7 @@ interface Data {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderListComponent implements OnInit {
-  public orders$!: Observable<any>;
+  public orders$!: Observable<UserOrder[]>;
 
   constructor(private icemanService: IcemanService) {}
 

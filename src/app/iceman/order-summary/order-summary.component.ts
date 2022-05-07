@@ -1,9 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-
-export interface OrderSummary {
-  name: string;
-  quantity: number;
-}
+import { map, Observable } from 'rxjs';
+import { Order } from 'src/app/shared/model/order';
+import { UserOrder } from 'src/app/shared/model/userOrde';
+import { IcemanService } from 'src/app/shared/services/iceman/iceman.service';
 
 @Component({
   selector: 'app-order-summary',
@@ -12,12 +11,36 @@ export interface OrderSummary {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderSummaryComponent implements OnInit {
-  public orderSummary: OrderSummary[] = [
-    { name: 'Waniliowe', quantity: 10 },
-    { name: 'Truskawkowe', quantity: 5 },
-    { name: 'Czekoladowe', quantity: 15 },
-  ];
-  constructor() {}
+  public orderSummary$!: Observable<Order[]>;
 
-  ngOnInit(): void {}
+  constructor(private icemnaService: IcemanService) {}
+
+  ngOnInit(): void {
+    this.orderSummary$ = this.icemnaService.getOrdersList().pipe(
+      map((el) =>
+        el.flatMap((order: UserOrder) =>
+          order.order.flatMap((order) => {
+            const array: Order[] = [];
+            const existIndex = array.findIndex(
+              (el) => el.name === order.name && el.capacity === order.capacity
+            );
+            const exist = array[existIndex];
+            let updateIces: Order[] = [];
+
+            if (exist) {
+              const updateIce = {
+                ...exist,
+                amounnt: exist.amount + order.amount,
+              };
+              updateIces = [...array];
+              updateIces[existIndex] = updateIce;
+            } else {
+              updateIces = array.concat(order);
+            }
+            return updateIces;
+          })
+        )
+      )
+    );
+  }
 }

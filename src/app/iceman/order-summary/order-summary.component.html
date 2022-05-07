@@ -1,1 +1,3 @@
-<app-order-item [summary]="orderSummary"></app-order-item>
+<ng-container *ngIf="orderSummary$ | async as order" else loader>
+  <app-order-item [summary]="order"></app-order-item>
+</ng-container>

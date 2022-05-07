@@ -1,6 +1,7 @@
 <div class="container">
   <mat-card class="order-item" *ngFor="let order of summary">
     <mat-card-title>{{ order.name }}</mat-card-title>
-    <mat-card-subtitle>{{ order.quantity }}</mat-card-subtitle>
+    <mat-card-subtitle>x: {{ order.amount }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ order.capacity }} l</mat-card-subtitle>
   </mat-card>
 </div>

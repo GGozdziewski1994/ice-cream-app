@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   Input,
 } from '@angular/core';
-import { OrderSummary } from '../order-summary.component';
+import { Order } from 'src/app/shared/model/order';
 
 @Component({
   selector: 'app-order-item',
@@ -13,7 +13,7 @@ import { OrderSummary } from '../order-summary.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderItemComponent implements OnInit {
-  @Input() summary: OrderSummary[] = [];
+  @Input() summary: Order[] = [];
 
   constructor() {}
 
