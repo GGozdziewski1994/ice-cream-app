@@ -3,7 +3,9 @@ import {
   AngularFireDatabase,
   AngularFireList,
 } from '@angular/fire/compat/database';
+import { Store } from '@ngrx/store';
 import { map, take } from 'rxjs';
+import { OrderActions } from 'src/app/store/order/order.actions';
 import { Order } from '../../model/order';
 import { User } from '../../model/user';
 
@@ -20,14 +22,10 @@ export class ClientService {
   private capacityRef!: AngularFireList<any>;
   private favoriteIceCream!: AngularFireList<any>;
   private lastOrder!: AngularFireList<any>;
-  private user: User;
+  private user!: User;
 
-  constructor(private db: AngularFireDatabase) {
-    this.iceCreamRef = this.db.list('ice-cream-option');
-    this.capacityRef = this.db.list('capacity-option');
-    this.user = JSON.parse(localStorage.getItem('userData') || '{}');
-    this.favoriteIceCream = this.db.list(`users/${this.user.uid}/favorite`);
-    this.lastOrder = this.db.list(`users/${this.user.uid}/order`);
+  constructor(private db: AngularFireDatabase, private store: Store) {
+    this.init();
   }
 
   public checkShippedOrder() {
@@ -53,12 +51,21 @@ export class ClientService {
   }
 
   public getLastOrder() {
-    return this.lastOrder.snapshotChanges().pipe(
-      take(1),
-      map((el) => {
-        return el.map((order) => order.payload.val());
-      })
-    );
+    return this.lastOrder
+      .snapshotChanges()
+      .pipe(
+        take(1),
+        map((el) => {
+          return el.map((order) => order.payload.val());
+        })
+      )
+      .subscribe((arrayOrder) => {
+        arrayOrder.flatMap((orders) => {
+          orders.map((order: Order) => {
+            this.store.dispatch(OrderActions.addOrder(order));
+          });
+        });
+      });
   }
 
   public setLastOrder(order: Order[]) {
@@ -94,6 +101,14 @@ export class ClientService {
 
   public removeIceCreamToFavorite(iceCream: string) {
     return this.favoriteIceCream.remove(iceCream);
+  }
+
+  public init() {
+    this.iceCreamRef = this.db.list('ice-cream-option');
+    this.capacityRef = this.db.list('capacity-option');
+    this.user = JSON.parse(localStorage.getItem('userData') || '{}');
+    this.favoriteIceCream = this.db.list(`users/${this.user.uid}/favorite`);
+    this.lastOrder = this.db.list(`users/${this.user.uid}/order`);
   }
 
   private getDate() {

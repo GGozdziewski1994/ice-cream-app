@@ -8,6 +8,8 @@ import { User } from '../../model/user';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { Router } from '@angular/router';
 import { isLoggedActions } from 'src/app/store/isLoggedUser/isLoggedUser.actions';
+import { OrderActions } from 'src/app/store/order/order.actions';
+import { ClientService } from '../client/client.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +20,8 @@ export class AuthService {
   constructor(
     private fireAuth: AngularFireAuth,
     private store: Store<AppState>,
-    private router: Router
+    private router: Router,
+    private clientService: ClientService
   ) {
     this.userData = this.fireAuth.authState;
   }
@@ -36,6 +39,7 @@ export class AuthService {
           };
 
           this.setUser(userData);
+          this.clientService.init();
         }
       });
   }
@@ -66,6 +70,7 @@ export class AuthService {
     this.fireAuth.signOut();
     localStorage.removeItem('userData');
     this.store.dispatch(AuthActions.setNotAuth());
+    this.store.dispatch(OrderActions.clearOreder());
     this.router.navigate(['auth']);
   }
 
@@ -81,5 +86,3 @@ export class AuthService {
     }
   }
 }
-
-// : Promise<firebase.default.auth.UserCredential>

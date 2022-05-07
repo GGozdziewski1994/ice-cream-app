@@ -61,9 +61,9 @@ export class IceCreamItemComponent implements OnInit, OnDestroy {
     const index = this.favoriteList.findIndex((el) => el.name === name);
     const iceCream = this.favoriteList[index];
 
-    if (iceCream) {
+    if (iceCream && this.isFavorite) {
       this.clientService.removeIceCreamToFavorite(iceCream.key);
-    } else {
+    } else if (!iceCream && this.favoriteList) {
       this.clientService.addIceCreamToFavorite(name);
     }
   }
