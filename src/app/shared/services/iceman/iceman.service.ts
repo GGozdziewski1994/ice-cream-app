@@ -63,7 +63,7 @@ export class IcemanService {
   private getDate() {
     const year = new Date().getFullYear();
     const month = new Date().getMonth() + 1;
-    const day = new Date().getDay() + 1;
+    const day = new Date().getDay();
     return `${year}-${month}-${day}`;
   }
 }
