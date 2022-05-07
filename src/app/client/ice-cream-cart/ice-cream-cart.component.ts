@@ -5,7 +5,6 @@ import { AppState } from 'src/app/store/app.state';
 import { Observable, take } from 'rxjs';
 import { Order } from 'src/app/shared/model/order';
 import { OrderActions } from 'src/app/store/order/order.actions';
-import { FormControl, FormGroup } from '@angular/forms';
 import { ClientService } from 'src/app/shared/services/client/client.service';
 @Component({
   selector: 'app-ice-cream-cart',
@@ -16,7 +15,7 @@ import { ClientService } from 'src/app/shared/services/client/client.service';
 export class IceCreamCartComponent implements OnInit {
   public orders$!: Observable<Order[]>;
   public total$!: Observable<number>;
-  public FormOrder!: FormGroup;
+  public isShipped$!: Observable<boolean>;
 
   constructor(
     private location: Location,
@@ -25,17 +24,14 @@ export class IceCreamCartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.initFormOrder();
     this.orders$ = this.store.select((state) => state.order.iceCream);
     this.total$ = this.store.select((state) => state.order.total);
+    this.isShipped$ = this.clientService.checkShippedOrder();
   }
 
   public onSubmit() {
-    const date = this.getDate();
     this.orders$.pipe(take(1)).subscribe((order) => {
-      order.map((order) =>
-        this.store.dispatch(OrderActions.removeIceCream(order))
-      );
+      this.store.dispatch(OrderActions.clearOreder());
       const sendOrder: Order[] = [];
       order.map((order) => {
         sendOrder.push({
@@ -46,7 +42,7 @@ export class IceCreamCartComponent implements OnInit {
         });
       });
 
-      this.clientService.sendOrder(date, sendOrder);
+      this.clientService.sendOrder(sendOrder);
     });
 
     this.onClose();
@@ -63,20 +59,5 @@ export class IceCreamCartComponent implements OnInit {
 
   public removeIceCream(iceCream: Order) {
     this.store.dispatch(OrderActions.removeIceCream(iceCream));
-  }
-
-  private initFormOrder() {
-    this.FormOrder = new FormGroup({
-      name: new FormControl(null),
-      amount: new FormControl(null),
-      capacity: new FormControl(null),
-    });
-  }
-
-  private getDate() {
-    const year = new Date().getFullYear();
-    const month = new Date().getMonth() + 1;
-    const day = new Date().getDay() + 1;
-    return `${year}-${month}-${day}`;
   }
 }

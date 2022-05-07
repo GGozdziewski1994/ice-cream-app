@@ -1,52 +1,52 @@
 <app-modal (emmiter)="onClose()">
-  <form [formGroup]="FormOrder" (ngSubmit)="onSubmit()">
-    <div class="container">
-      <div class="iceCreams">
-        <ul *ngFor="let order of orders$ | async">
-          <li class="iceCream">
-            <div>
-              <h3 class="iceCream__name">{{ order.name }}</h3>
-              <div class="iceCream__summary">
-                <span class="iceCream__capacity"
-                  >Capacity: {{ order.capacity }}</span
-                >
-                <span class="iceCream__amount">X {{ order.amount }}</span>
-              </div>
-            </div>
-            <div class="iceCream__actions">
-              <button
-                (click)="removeIceCream(order)"
-                mat-stroked-button
-                color="warn"
+  <div class="container">
+    <div class="iceCreams">
+      <ul *ngFor="let order of orders$ | async">
+        <li class="iceCream">
+          <div>
+            <h3 class="iceCream__name">{{ order.name }}</h3>
+            <div class="iceCream__summary">
+              <span class="iceCream__capacity"
+                >Capacity: {{ order.capacity }}</span
               >
-                <mat-icon>remove</mat-icon>
-              </button>
-              <button
-                (click)="addIceCream(order)"
-                mat-stroked-button
-                color="warn"
-              >
-                <mat-icon>add</mat-icon>
-              </button>
+              <span class="iceCream__amount">X {{ order.amount }}</span>
             </div>
-          </li>
-        </ul>
-      </div>
-      <div class="total">
-        <span>Total order</span>
-        <span>{{ total$ | async }}</span>
-      </div>
-      <div class="actions">
-        <button
-          (click)="onClose()"
-          mat-stroked-button
-          color="warn"
-          type="button"
-        >
-          Close
-        </button>
-        <button mat-raised-button color="primary" type="submit">Order</button>
-      </div>
+          </div>
+          <div class="iceCream__actions">
+            <button
+              (click)="removeIceCream(order)"
+              mat-stroked-button
+              color="warn"
+            >
+              <mat-icon>remove</mat-icon>
+            </button>
+            <button
+              (click)="addIceCream(order)"
+              mat-stroked-button
+              color="warn"
+            >
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </li>
+      </ul>
     </div>
-  </form>
+    <div class="total">
+      <span>Total order</span>
+      <span>{{ total$ | async }}</span>
+    </div>
+    <div class="actions">
+      <button (click)="onClose()" mat-stroked-button color="warn" type="button">
+        Close
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="isShipped$ | async"
+        (click)="onSubmit()"
+      >
+        Order
+      </button>
+    </div>
+  </div>
 </app-modal>

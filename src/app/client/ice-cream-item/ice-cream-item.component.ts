@@ -45,11 +45,12 @@ export class IceCreamItemComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit() {
-    this.order = {
-      id: Math.random(),
-      name: this.iceCream,
-      ...this.orderForm.value,
-    };
+    if (this.orderForm.value)
+      this.order = {
+        id: Math.random(),
+        name: this.iceCream,
+        ...this.orderForm.value,
+      };
     this.sotre.dispatch(OrderActions.addOrder(this.order));
     this.orderForm.reset();
   }
@@ -60,7 +61,6 @@ export class IceCreamItemComponent implements OnInit, OnDestroy {
 
     if (iceCream) {
       this.clientService.removeIceCreamToFavorite(iceCream.key);
-      //this.sotre.dispatch(FavoriteListActions.removeFavoriteFromList(iceCream));
     } else {
       this.clientService.addIceCreamToFavorite(name);
     }

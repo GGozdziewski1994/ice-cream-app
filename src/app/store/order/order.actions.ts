@@ -7,4 +7,5 @@ export const OrderActions = {
     '[Order], Remove oredr from cart',
     props<Order>()
   ),
+  clearOreder: createAction('[Order], Clear Order'),
 };

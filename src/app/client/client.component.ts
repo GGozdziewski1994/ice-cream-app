@@ -12,11 +12,11 @@ import { OrderActions } from '../store/order/order.actions';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientComponent implements OnInit {
-  public orders: any = [];
-
   constructor(private clientService: ClientService, private store: Store) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.clientService.checkShippedOrder();
+  }
 
   public getLastOrderClient() {
     this.clientService

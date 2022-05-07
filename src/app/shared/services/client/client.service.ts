@@ -5,6 +5,12 @@ import {
 } from '@angular/fire/compat/database';
 import { map, take } from 'rxjs';
 import { Order } from '../../model/order';
+import { User } from '../../model/user';
+
+interface UserOrder {
+  user: string;
+  orders: Order[];
+}
 
 @Injectable({
   providedIn: 'root',
@@ -14,20 +20,35 @@ export class ClientService {
   private capacityRef!: AngularFireList<any>;
   private favoriteIceCream!: AngularFireList<any>;
   private lastOrder!: AngularFireList<any>;
-  private email!: string;
+  private user: User;
 
   constructor(private db: AngularFireDatabase) {
     this.iceCreamRef = this.db.list('ice-cream-option');
     this.capacityRef = this.db.list('capacity-option');
-    const user = JSON.parse(localStorage.getItem('userData') || '{}');
-    const uid = user.uid;
-    this.email = user.email;
-    this.favoriteIceCream = this.db.list(`users/${uid}/favorite`);
-    this.lastOrder = this.db.list(`users/${uid}/order`);
+    this.user = JSON.parse(localStorage.getItem('userData') || '{}');
+    this.favoriteIceCream = this.db.list(`users/${this.user.uid}/favorite`);
+    this.lastOrder = this.db.list(`users/${this.user.uid}/order`);
   }
 
-  public sendOrder(date: any, order: Order[]) {
-    this.db.list(date).push({ user: this.email, ...order });
+  public checkShippedOrder() {
+    const date = this.getDate();
+    return this.db
+      .list(date)
+      .valueChanges()
+      .pipe(
+        map((el: any) =>
+          el.some((el: UserOrder) => el.user === this.user.email)
+        )
+      );
+  }
+
+  public sendOrder(order: Order[]) {
+    const date = this.getDate();
+    const userOrder: UserOrder = {
+      user: this.user.email,
+      orders: [...order],
+    };
+    this.db.list(date).push(userOrder);
     this.setLastOrder(order);
   }
 
@@ -73,5 +94,12 @@ export class ClientService {
 
   public removeIceCreamToFavorite(iceCream: string) {
     return this.favoriteIceCream.remove(iceCream);
+  }
+
+  private getDate() {
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth() + 1;
+    const day = new Date().getDay() + 1;
+    return `${year}-${month}-${day}`;
   }
 }

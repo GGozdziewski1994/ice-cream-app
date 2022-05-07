@@ -58,5 +58,12 @@ export const orderReducer = createReducer(
       iceCream: updatedIceCrames,
       total: state.total - 1,
     };
+  }),
+
+  on(OrderActions.clearOreder, () => {
+    return {
+      iceCream: [],
+      total: 0,
+    };
   })
 );
