@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Observable } from 'rxjs';
+import { IcemanService } from 'src/app/shared/services/iceman/iceman.service';
 
 interface Data {
   email: string;
@@ -12,25 +14,11 @@ interface Data {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderListComponent implements OnInit {
-  public data: Data[] | any = [
-    {
-      email: 'test@test',
-      iceCream: [
-        { name: 'Czekoladowe', quantity: 2 },
-        { name: 'Waniliowe', quantity: 4 },
-      ],
-    },
-    {
-      email: 'test2@test',
-      iceCream: [
-        { name: 'Czekoladowe', quantity: 2 },
-        { name: 'Waniliowe', quantity: 4 },
-        { name: 'Truskawkowe', quantity: 5 },
-        { name: 'Orzechowe', quantity: 6 },
-      ],
-    },
-  ];
-  constructor() {}
+  public orders$!: Observable<any>;
 
-  ngOnInit(): void {}
+  constructor(private icemanService: IcemanService) {}
+
+  ngOnInit(): void {
+    this.orders$ = this.icemanService.getOrdersList();
+  }
 }

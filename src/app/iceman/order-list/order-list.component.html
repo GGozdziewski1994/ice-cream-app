@@ -2,12 +2,13 @@
   <mat-card-header>
     <mat-card-title>Lista zamówień</mat-card-title>
   </mat-card-header>
-  <mat-list *ngFor="let order of data; let i = index" class="order">
+  <mat-list *ngFor="let data of orders$ | async; let i = index" class="order">
     <mat-list-item>{{ i + 1 }}</mat-list-item>
-    <mat-list-item>{{ order.email }}</mat-list-item>
-    <mat-list-item *ngFor="let ice of order.iceCream">
-        <span class="ice-name">{{ ice.name }}:</span>
-        <span>{{ ice.quantity }} l</span>
+    <mat-list-item>{{ data.user }}</mat-list-item>
+    <mat-list-item *ngFor="let ice of data.order">
+      <span class="ice">{{ ice.name }}</span>
+      <span class="ice">x {{ ice.amount }}:</span>
+      <span class="ice">{{ ice.capacity }} l</span>
     </mat-list-item>
-</mat-list>
+  </mat-list>
 </mat-card>
