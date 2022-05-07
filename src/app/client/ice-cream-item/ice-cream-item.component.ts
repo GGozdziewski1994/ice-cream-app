@@ -5,7 +5,7 @@ import {
   Input,
   OnDestroy,
 } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Order } from 'src/app/shared/model/order';
@@ -45,12 +45,14 @@ export class IceCreamItemComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit() {
-    if (this.orderForm.value)
-      this.order = {
-        id: Math.random(),
-        name: this.iceCream,
-        ...this.orderForm.value,
-      };
+    if (!this.orderForm.value.amount || !this.orderForm.value.capacity) return;
+
+    this.order = {
+      id: Math.random(),
+      name: this.iceCream,
+      ...this.orderForm.value,
+    };
+
     this.sotre.dispatch(OrderActions.addOrder(this.order));
     this.orderForm.reset();
   }
@@ -64,33 +66,12 @@ export class IceCreamItemComponent implements OnInit, OnDestroy {
     } else {
       this.clientService.addIceCreamToFavorite(name);
     }
-
-    // this.clientService
-    //   .getFavoriteIceCream()
-    //   .pipe(
-    //     take(1),
-    //     map((el) => {
-    //       return {
-    //         isFav: el.some((ice) => ice.name === name),
-    //         name: el,
-    //       };
-    //     })
-    //   )
-    //   .subscribe((ice) => {
-    //     console.log(ice);
-    //     if (ice.isFav) {
-    //       console.log(key, name);
-    //       this.clientService.removeIceCreamToFavorite(key);
-    //     } else {
-    //       this.clientService.addIceCreamToFavorite(name);
-    //     }
-    //   });
   }
 
   private initOrderForm() {
     this.orderForm = new FormGroup({
-      amount: new FormControl(null),
-      capacity: new FormControl(null),
+      amount: new FormControl(null, [Validators.required]),
+      capacity: new FormControl(null, [Validators.required]),
     });
   }
 }

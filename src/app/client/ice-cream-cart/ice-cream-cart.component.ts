@@ -42,6 +42,8 @@ export class IceCreamCartComponent implements OnInit {
         });
       });
 
+      if (sendOrder.length < 1) return;
+
       this.clientService.sendOrder(sendOrder);
     });
 

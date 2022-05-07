@@ -24,17 +24,32 @@
               min="1"
               step="1"
               [defaultValue]="1"
+              required
             />
+            <mat-error
+              *ngIf="
+                orderForm.controls['amount'].touched &&
+                orderForm.controls['amount'].errors
+              "
+              >required</mat-error
+            >
           </mat-form-field>
         </div>
         <div class="form__select">
           <mat-form-field class="form__field">
             <mat-label>Capacity</mat-label>
-            <mat-select formControlName="capacity">
+            <mat-select formControlName="capacity" required>
               <mat-option *ngFor="let option of capacity" [value]="option">{{
                 option
               }}</mat-option>
             </mat-select>
+            <mat-error
+              *ngIf="
+                orderForm.controls['capacity'].touched &&
+                orderForm.controls['capacity'].errors
+              "
+              >required</mat-error
+            >
           </mat-form-field>
         </div>
       </div>
