@@ -11,7 +11,7 @@ export const orderReducer = createReducer(
   initialState,
   on(OrderActions.addOrder, (state, action) => {
     const existingCartIceCreamIndex = state.iceCream.findIndex(
-      (ice) => ice.id === action.id
+      (ice) => ice.name === action.name && ice.capacity === action.capacity
     );
 
     const existingIceCream = state.iceCream[existingCartIceCreamIndex];

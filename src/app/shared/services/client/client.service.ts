@@ -3,7 +3,7 @@ import {
   AngularFireDatabase,
   AngularFireList,
 } from '@angular/fire/compat/database';
-import { map } from 'rxjs';
+import { map, take } from 'rxjs';
 import { Order } from '../../model/order';
 
 @Injectable({
@@ -27,12 +27,17 @@ export class ClientService {
   }
 
   public sendOrder(date: any, order: Order[]) {
-    this.db.list(date).push({ user: this.email, order });
+    this.db.list(date).push({ user: this.email, ...order });
     this.setLastOrder(order);
   }
 
   public getLastOrder() {
-    return this.lastOrder.snapshotChanges();
+    return this.lastOrder.snapshotChanges().pipe(
+      take(1),
+      map((el) => {
+        return el.map((order) => order.payload.val());
+      })
+    );
   }
 
   public setLastOrder(order: Order[]) {
