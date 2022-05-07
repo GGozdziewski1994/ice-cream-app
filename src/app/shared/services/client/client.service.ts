@@ -11,7 +11,7 @@ import { User } from '../../model/user';
 
 interface UserOrder {
   user: string;
-  orders: Order[];
+  order: Order[];
 }
 
 @Injectable({
@@ -31,7 +31,7 @@ export class ClientService {
   public checkShippedOrder() {
     const date = this.getDate();
     return this.db
-      .list(date)
+      .list(`orders/${date}`)
       .valueChanges()
       .pipe(
         map((el: any) =>
@@ -44,9 +44,9 @@ export class ClientService {
     const date = this.getDate();
     const userOrder: UserOrder = {
       user: this.user.email,
-      orders: [...order],
+      order: [...order],
     };
-    this.db.list(date).push(userOrder);
+    this.db.list(`orders/${date}`).push(userOrder);
     this.setLastOrder(order);
   }
 
