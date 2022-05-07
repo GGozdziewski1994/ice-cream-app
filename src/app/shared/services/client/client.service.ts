@@ -8,11 +8,7 @@ import { map, take } from 'rxjs';
 import { OrderActions } from 'src/app/store/order/order.actions';
 import { Order } from '../../model/order';
 import { User } from '../../model/user';
-
-interface UserOrder {
-  user: string;
-  order: Order[];
-}
+import { UserOrder } from '../../model/userOrde';
 
 @Injectable({
   providedIn: 'root',

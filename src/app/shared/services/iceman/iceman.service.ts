@@ -4,6 +4,7 @@ import {
   AngularFireList,
 } from '@angular/fire/compat/database';
 import { map, take } from 'rxjs';
+import { UserOrder } from '../../model/userOrde';
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +26,8 @@ export class IcemanService {
       .valueChanges()
       .pipe(
         take(1),
-        map((el) =>
-          el.map((el: any) => {
+        map((el: any) =>
+          el.map((el: UserOrder) => {
             return {
               user: el.user,
               order: el.order,
