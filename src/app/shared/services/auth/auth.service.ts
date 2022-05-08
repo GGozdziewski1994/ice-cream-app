@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { isLoggedActions } from 'src/app/store/isLoggedUser/isLoggedUser.actions';
 import { OrderActions } from 'src/app/store/order/order.actions';
 import { ClientService } from '../client/client.service';
+import { CLIENT } from '../../model/constanst';
 
 @Injectable({
   providedIn: 'root',
@@ -34,8 +35,9 @@ export class AuthService {
           const userData: User = {
             uid: result.user.uid,
             email: result.user.email,
-            displayName: result.user.displayName,
+            displayName: result.user.displayName?.split('||')[0].trim(),
             refreshToken: result.user.refreshToken,
+            name: result.user.displayName?.split('||')[1].trim(),
           };
 
           this.setUser(userData);
@@ -56,12 +58,12 @@ export class AuthService {
     }
   }
 
-  public signup(email: string, password: string) {
+  public signup(email: string, password: string, name: string) {
     return this.fireAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         return result.user?.updateProfile({
-          displayName: 'client',
+          displayName: `${CLIENT} || ${name}`,
         });
       });
   }
@@ -77,7 +79,7 @@ export class AuthService {
   private setUser(userData: User) {
     localStorage.setItem('userData', JSON.stringify(userData));
     this.store.dispatch(AuthActions.setAuth());
-    if (userData.displayName === 'client') {
+    if (userData.displayName === CLIENT) {
       this.store.dispatch(isLoggedActions.setIsClient());
       this.router.navigate(['app/client']);
     } else {

@@ -30,11 +30,12 @@ export class AuthenticationComponent implements OnInit {
 
     const email = this.authForm.value.email;
     const password = this.authForm.value.password;
+    const name = this.authForm.value?.name;
 
     if (this.isLogin) {
       this.authService.login(email, password);
     } else {
-      this.authService.signup(email, password);
+      this.authService.signup(email, password, name);
     }
 
     this.authForm.reset();
@@ -46,6 +47,9 @@ export class AuthenticationComponent implements OnInit {
       password: new FormControl(null, [
         Validators.required,
         Validators.minLength(6),
+      ]),
+      name: new FormControl(null, [
+        !this.isLogin ? Validators.required : Validators.nullValidator,
       ]),
     });
   }

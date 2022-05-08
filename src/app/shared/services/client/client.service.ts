@@ -31,7 +31,7 @@ export class ClientService {
       .valueChanges()
       .pipe(
         map((el: any) =>
-          el.some((el: UserOrder) => el.user === this.user.email)
+          el.some((el: UserOrder) => el.email === this.user.email)
         )
       );
   }
@@ -39,7 +39,8 @@ export class ClientService {
   public sendOrder(order: Order[]) {
     const date = this.getDate();
     const userOrder: UserOrder = {
-      user: this.user.email,
+      email: this.user.email,
+      user: this.user.name,
       order: [...order],
     };
     this.db.list(`orders/${date}`).push(userOrder);

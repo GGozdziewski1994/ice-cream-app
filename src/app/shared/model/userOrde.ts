@@ -1,6 +1,7 @@
 import { Order } from './order';
 
 export interface UserOrder {
-  user: string;
+  email: string;
+  user?: string;
   order: Order[];
 }
