@@ -62,7 +62,6 @@ export class AuthService {
     return this.fireAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        console.log(result);
         return result.user?.updateProfile({
           displayName: `${CLIENT}||${name}`,
         });

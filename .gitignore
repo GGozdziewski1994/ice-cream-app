@@ -44,3 +44,8 @@ Thumbs.db
 .env
 /src/environments/*
 !/src/environments/.gitkeep
+
+.github/*
+.firebase*
+firebase.json
+.firebaserc
