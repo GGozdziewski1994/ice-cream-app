@@ -35,9 +35,9 @@ export class AuthService {
           const userData: User = {
             uid: result.user.uid,
             email: result.user.email,
-            displayName: result.user.displayName?.split('||')[0]?.trim(),
+            displayName: result.user.displayName?.split('||')[0],
             refreshToken: result.user.refreshToken,
-            name: result.user.displayName?.split('||')[1]?.trim(),
+            name: result.user.displayName?.split('||')[1],
           };
 
           this.setUser(userData);
@@ -62,8 +62,9 @@ export class AuthService {
     return this.fireAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
+        console.log(result);
         return result.user?.updateProfile({
-          displayName: `${CLIENT} || ${name}`,
+          displayName: `${CLIENT}||${name}`,
         });
       });
   }
