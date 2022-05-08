@@ -35,9 +35,9 @@ export class AuthService {
           const userData: User = {
             uid: result.user.uid,
             email: result.user.email,
-            displayName: result.user.displayName?.split('||')[0].trim(),
+            displayName: result.user.displayName?.split('||')[0]?.trim(),
             refreshToken: result.user.refreshToken,
-            name: result.user.displayName?.split('||')[1].trim(),
+            name: result.user.displayName?.split('||')[1]?.trim(),
           };
 
           this.setUser(userData);
