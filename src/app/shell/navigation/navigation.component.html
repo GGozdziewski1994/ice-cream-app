@@ -3,9 +3,12 @@
     <ng-container *ngIf="isClient$ | async">
       <div class="navlist">
         <li *ngFor="let rout of routingListClient" class="navlist__item">
-          <a routerLink="{{ rout.link }}" routerLinkActive="active">{{
-            rout.title
-          }}</a>
+          <a
+            routerLink="{{ rout.link }}"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >{{ rout.title }}</a
+          >
         </li>
       </div>
       <div>
@@ -22,9 +25,12 @@
     <ng-container *ngIf="!(isClient$ | async)">
       <div class="navlist">
         <li *ngFor="let rout of routingListIceman" class="navlist__item">
-          <a routerLink="{{ rout.link }}" routerLinkActive="active">{{
-            rout.title
-          }}</a>
+          <a
+            routerLink="{{ rout.link }}"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >{{ rout.title }}</a
+          >
         </li>
       </div>
     </ng-container>
@@ -39,9 +45,12 @@
     <ng-container *ngIf="isClient$ | async">
       <div class="navlist">
         <li *ngFor="let rout of routingListClient" mat-menu-item>
-          <a routerLink="{{ rout.link }}" routerLinkActive="active">{{
-            rout.title
-          }}</a>
+          <a
+            routerLink="{{ rout.link }}"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >{{ rout.title }}</a
+          >
         </li>
       </div>
       <div>
