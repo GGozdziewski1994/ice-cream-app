@@ -13,7 +13,3 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Deploy project in fribase hosting
 
 https://ice-man-app-d2740.web.app/auth
-<<<<<<< HEAD
-
-=======
->>>>>>> b0253e0 (refactor: add link to hosting app)
