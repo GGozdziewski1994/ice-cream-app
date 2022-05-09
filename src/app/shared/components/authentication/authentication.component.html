@@ -5,14 +5,41 @@
       <div *ngIf="!isLogin" class="auth-control">
         <label for="name">Nazwa użytkownika</label>
         <input type="text" id="name" formControlName="name" />
+        <p
+          class="error"
+          *ngIf="
+            authForm.controls['name'].touched &&
+            authForm.controls['name'].errors
+          "
+        >
+          Wprowadź nazwę użytkownika
+        </p>
       </div>
       <div class="auth-control">
         <label for="email">Mail</label>
         <input type="email" id="email" formControlName="email" />
+        <p
+          class="error"
+          *ngIf="
+            authForm.controls['email'].touched &&
+            authForm.controls['email'].errors
+          "
+        >
+          Wprowadź poprawny adres email
+        </p>
       </div>
       <div class="auth-control">
         <label for="password">Password</label>
         <input type="password" id="password" formControlName="password" />
+        <p
+          class="error"
+          *ngIf="
+            authForm.controls['password'].touched &&
+            authForm.controls['password'].errors
+          "
+        >
+          Hasło musi się składać z conajmniej 6 znaków
+        </p>
       </div>
       <div class="actions">
         <button type="submit" class="submit" [disabled]="!authForm.valid">
