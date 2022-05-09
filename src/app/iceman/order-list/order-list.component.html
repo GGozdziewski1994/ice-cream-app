@@ -2,13 +2,11 @@
   <mat-card-header>
     <mat-card-title>Lista zamówień</mat-card-title>
   </mat-card-header>
-  <mat-list *ngFor="let data of orders$ | async; let i = index" class="order">
-    <mat-list-item>{{ i + 1 }}</mat-list-item>
-    <mat-list-item>{{ data.user }}</mat-list-item>
-    <mat-list-item *ngFor="let ice of data.order">
-      <span class="ice">{{ ice.name }}</span>
-      <span class="ice">x {{ ice.amount }}:</span>
-      <span class="ice">{{ ice.capacity }} l</span>
-    </mat-list-item>
-  </mat-list>
+  <ng-container *ngIf="orders$ | async as orders; else loader">
+    <app-order-list-item [orders]="orders"></app-order-list-item>
+  </ng-container>
 </mat-card>
+
+<ng-template #loader>
+  <app-loading-spinner class="spinner"></app-loading-spinner>
+</ng-template>

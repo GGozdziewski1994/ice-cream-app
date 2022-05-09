@@ -1,3 +1,7 @@
-<ng-container *ngIf="orderSummary$ | async as order" else loader>
+<ng-container *ngIf="orderSummary$ | async as order; else loader">
   <app-order-item [summary]="order"></app-order-item>
 </ng-container>
+
+<ng-template #loader>
+  <app-loading-spinner class="spinner"></app-loading-spinner>
+</ng-template>

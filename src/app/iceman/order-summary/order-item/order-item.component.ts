@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  Input,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Order } from 'src/app/shared/model/order';
 
 @Component({
@@ -12,10 +7,6 @@ import { Order } from 'src/app/shared/model/order';
   styleUrls: ['./order-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrderItemComponent implements OnInit {
+export class OrderItemComponent {
   @Input() summary: Order[] = [];
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

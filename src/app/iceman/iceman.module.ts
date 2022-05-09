@@ -15,6 +15,7 @@ import { AddNewClientComponent } from './add-new-client/add-new-client.component
 import { ShapeListComponent } from './shape-list/shape-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { OrderItemComponent } from './order-summary/order-item/order-item.component';
+import { OrderListItemComponent } from './order-list/order-list-item/order-list-item.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { OrderItemComponent } from './order-summary/order-item/order-item.compon
     AddNewClientComponent,
     ShapeListComponent,
     OrderItemComponent,
+    OrderListItemComponent,
   ],
   imports: [
     CommonModule,

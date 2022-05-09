@@ -1,0 +1,18 @@
+.order {
+  display: flex;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.295);
+  justify-content: left;
+  flex-wrap: wrap;
+}
+
+.order:last-child {
+  border: none;
+}
+
+.mat-list-base .mat-list-item {
+  width: auto;
+}
+
+.ice {
+  margin-right: 1rem;
+}

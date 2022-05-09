@@ -10,6 +10,7 @@ import { AuthenticationComponent } from './components/authentication/authenticat
 import { ModalComponent } from './components/modal/modal.component';
 import { FormArrayComponent } from './components/form-array/form-array.component';
 import { SortPipe } from './pipes/sort.pipe';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { SortPipe } from './pipes/sort.pipe';
     ModalComponent,
     FormArrayComponent,
     SortPipe,
+    LoadingSpinnerComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +33,7 @@ import { SortPipe } from './pipes/sort.pipe';
     ModalComponent,
     FormArrayComponent,
     SortPipe,
+    LoadingSpinnerComponent,
   ],
 })
 export class SharedModule {}
