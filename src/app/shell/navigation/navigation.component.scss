@@ -1,6 +1,3 @@
-@use "../../../sass/variables" as *;
-@use "../../../sass/typography" as *;
-
 .navContainer {
   display: flex;
   justify-content: space-between;
@@ -16,11 +13,11 @@ nav {
 
     &__item {
       margin-right: 5rem;
-      font-weight: $font-weight-bold;
-      color: $color-black-700;
+      font-weight: bold;
+      color: rgb(68, 68, 240);
 
       &:hover {
-        color: $color-primary-dark;
+        color: rgb(8, 8, 189);
         cursor: pointer;
       }
     }
@@ -28,7 +25,7 @@ nav {
 }
 
 .active {
-  color: $color-primary-dark;
+  color: rgb(8, 8, 189);
 }
 
 a {
@@ -39,9 +36,9 @@ a {
 .button {
   cursor: pointer;
   border: none;
-  background: rgb(177, 177, 177);
-  color: white;
-  padding: 0.75rem 3rem;
+  background: lightblue;
+  color: blue;
+  padding: 1.25rem 3rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -50,7 +47,7 @@ a {
 
   &:hover,
   &:active {
-    background-color: rgb(151, 151, 151);
+    background-color: rgb(146, 212, 235);
   }
 
   &__badge {
@@ -58,5 +55,21 @@ a {
     padding: 0.25rem 1rem;
     border-radius: 25px;
     margin-left: 1rem;
+  }
+}
+
+.menu {
+  display: none;
+  color: blue;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 700px) {
+  .navigation {
+    display: none;
+  }
+
+  .menu {
+    display: block;
   }
 }

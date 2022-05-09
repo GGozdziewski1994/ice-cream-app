@@ -1,10 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
-@use "sass/typography";
-@use "sass/variables";
-@use "sass/global";
 @use "./custom-theme.scss";
 
-body {
+*,
+*::after,
+*::before {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  color: rgb(0 0 0);
+  letter-spacing: 0%;
+  margin: 0;
+  font-family: Helvetica, Roboto, "Helvetica Neue", sans-serif;
+  background: url(./assets/ice-cream.jpg);
+  background-size: 100%;
 }

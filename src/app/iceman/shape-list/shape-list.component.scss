@@ -19,4 +19,14 @@
 .actions {
   margin: 2rem;
   text-align: center;
+
+  & button:hover {
+    background: rgb(226, 226, 226);
+  }
+}
+
+.chip {
+  background: rgb(145, 178, 189);
+  color: rgb(78, 102, 109);
+  font-weight: bold;
 }

@@ -1,16 +1,18 @@
-<nav>
+<nav class="navigation">
   <ul class="navContainer">
     <ng-container *ngIf="isClient$ | async">
       <div class="navlist">
         <li *ngFor="let rout of routingListClient" class="navlist__item">
-          <a routerLink="{{ rout.link }}" routerLinkActive="active">{{ rout.title }}</a>
+          <a routerLink="{{ rout.link }}" routerLinkActive="active">{{
+            rout.title
+          }}</a>
         </li>
       </div>
       <div>
         <li>
           <a [routerLink]="routingCartClient.link">
             <button class="button">
-              <span>Order Cart</span>
+              <span>Twoje zamówienie</span>
               <span class="button__badge">{{ total$ | async }}</span>
             </button>
           </a>
@@ -20,9 +22,47 @@
     <ng-container *ngIf="!(isClient$ | async)">
       <div class="navlist">
         <li *ngFor="let rout of routingListIceman" class="navlist__item">
-          <a routerLink="{{ rout.link }}" routerLinkActive="active">{{ rout.title }}</a>
+          <a routerLink="{{ rout.link }}" routerLinkActive="active">{{
+            rout.title
+          }}</a>
         </li>
       </div>
     </ng-container>
   </ul>
 </nav>
+
+<button mat-button [matMenuTriggerFor]="menu" class="menu">
+  Menu <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu>
+  <ul>
+    <ng-container *ngIf="isClient$ | async">
+      <div class="navlist">
+        <li *ngFor="let rout of routingListClient" mat-menu-item>
+          <a routerLink="{{ rout.link }}" routerLinkActive="active">{{
+            rout.title
+          }}</a>
+        </li>
+      </div>
+      <div>
+        <li mat-menu-item>
+          <a [routerLink]="routingCartClient.link">
+            <span>
+              <span>Twoje zamówienie</span>
+              <span class="button__badge">{{ total$ | async }}</span>
+            </span>
+          </a>
+        </li>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!(isClient$ | async)">
+      <div>
+        <li *ngFor="let rout of routingListIceman" mat-menu-item>
+          <a routerLink="{{ rout.link }}" routerLinkActive="active">{{
+            rout.title
+          }}</a>
+        </li>
+      </div>
+    </ng-container>
+  </ul>
+</mat-menu>
