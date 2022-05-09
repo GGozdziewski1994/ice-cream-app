@@ -16,7 +16,6 @@ import { AuthService } from '../../services/auth/auth.service';
 export class AuthenticationComponent implements OnInit {
   public authForm!: FormGroup;
   public isLoading = false;
-  public error = '';
   @Input() public isLogin = true;
 
   constructor(private authService: AuthService) {}
@@ -28,16 +27,23 @@ export class AuthenticationComponent implements OnInit {
   public onSubmit() {
     if (!this.authForm.valid) return;
 
+    this.isLoading = true;
+
     const email = this.authForm.value.email;
     const password = this.authForm.value.password;
     const name = this.authForm.value?.name;
 
+    let authObs!: Promise<void>;
+
     if (this.isLogin) {
-      this.authService.login(email, password);
+      authObs = this.authService.login(email, password);
     } else {
-      this.authService.signup(email, password, name);
+      authObs = this.authService.signup(email, password, name);
     }
 
+    authObs.then(() => {
+      this.isLoading = false;
+    });
     this.authForm.reset();
   }
 

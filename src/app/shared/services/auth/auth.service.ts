@@ -43,7 +43,8 @@ export class AuthService {
           this.setUser(userData);
           this.clientService.init();
         }
-      });
+      })
+      .catch((error) => window.alert(error.message));
   }
 
   public autoLogin() {
@@ -65,7 +66,8 @@ export class AuthService {
         return result.user?.updateProfile({
           displayName: `${CLIENT}||${name}`,
         });
-      });
+      })
+      .catch((error) => window.alert(error.message));
   }
 
   public logout() {
