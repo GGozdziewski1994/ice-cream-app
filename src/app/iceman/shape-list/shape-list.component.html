@@ -20,16 +20,19 @@
           </button>
         </mat-chip>
       </mat-chip-list>
-      <app-form-array (formEmmit)="onSubmitIceCream($event)"></app-form-array>
+      <app-form-array
+        [labelName]="'Podaj smak'"
+        (formEmmit)="onSubmitIceCream($event)"
+      ></app-form-array>
     </div>
     <div class="container__item">
-      <mat-card-title>Pojemność lodów</mat-card-title>
+      <mat-card-title>Pojemność lodów (kg)</mat-card-title>
       <mat-chip-list>
         <mat-chip
           class="chip"
           *ngFor="let capacity of capacityOptions$ | async; let i = index"
         >
-          {{ capacity.payload.val() }}
+          {{ capacity.payload.val() }} kg
           <button
             matChipRemove
             (click)="onRemoveCapacity(capacity.payload.key)"
@@ -39,7 +42,10 @@
           </button>
         </mat-chip>
       </mat-chip-list>
-      <app-form-array (formEmmit)="onSubmitCapacity($event)"></app-form-array>
+      <app-form-array
+        [labelName]="'Pojemność w kg'"
+        (formEmmit)="onSubmitCapacity($event)"
+      ></app-form-array>
     </div>
   </div>
   <div class="actions">

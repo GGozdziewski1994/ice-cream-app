@@ -1,7 +1,7 @@
 <div class="container">
   <div>
     <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
-      <h2 class="title">{{ isLogin ? "Login" : "Add Client" }}</h2>
+      <h2 class="title">{{ isLogin ? "Zaloguj się" : "Dodaj użytkownika" }}</h2>
       <div *ngIf="!isLogin" class="auth-control">
         <label for="name">Nazwa użytkownika</label>
         <input type="text" id="name" formControlName="name" />
@@ -29,7 +29,7 @@
         </p>
       </div>
       <div class="auth-control">
-        <label for="password">Password</label>
+        <label for="password">Hasło</label>
         <input type="password" id="password" formControlName="password" />
         <p
           class="error"
@@ -44,9 +44,9 @@
       <div class="actions">
         <button type="submit" class="submit" [disabled]="!authForm.valid">
           <ng-container *ngIf="!isLoading">
-            {{ isLogin ? "Login" : "Add new Client" }}
+            {{ isLogin ? "Zaloguj" : "Dodaj nowego użytkownika" }}
           </ng-container>
-          {{ isLoading ? "Loading..." : "" }}
+          {{ isLoading ? "Ładowanie..." : "" }}
         </button>
       </div>
     </form>

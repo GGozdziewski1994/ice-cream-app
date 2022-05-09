@@ -17,7 +17,7 @@
       <div class="form__options">
         <div class="form__input">
           <mat-form-field class="form__field">
-            <mat-label>Amount</mat-label>
+            <mat-label>Ilość</mat-label>
             <input
               formControlName="amount"
               matInput
@@ -38,7 +38,7 @@
         </div>
         <div class="form__select">
           <mat-form-field class="form__field">
-            <mat-label>Capacity</mat-label>
+            <mat-label>Poj. (kg)</mat-label>
             <mat-select formControlName="capacity" required>
               <mat-option *ngFor="let option of capacity" [value]="option">{{
                 option
@@ -55,7 +55,7 @@
         </div>
       </div>
       <button [disabled]="!orderForm.valid" mat-raised-button type="submit">
-        <mat-icon>add</mat-icon> Add
+        <mat-icon>add</mat-icon> Dodaj
       </button>
     </form>
   </div>

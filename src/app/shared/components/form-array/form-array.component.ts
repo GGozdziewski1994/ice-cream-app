@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   Output,
   EventEmitter,
+  Input,
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { formArray } from '../../model/formArrat';
@@ -16,6 +17,7 @@ import { formArray } from '../../model/formArrat';
 })
 export class FormArrayComponent implements OnInit {
   @Output() public formEmmit = new EventEmitter<formArray[]>();
+  @Input() public labelName!: string;
   public form!: FormGroup;
 
   ngOnInit(): void {
