@@ -21,10 +21,25 @@
   &__input,
   &__select {
     margin-left: 1rem;
-    width: 90px;
+    width: 100px;
   }
 
   &__field {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .iceCream {
+    flex-direction: column;
+    text-align: center;
+    &__input,
+    &__select {
+      width: 80px;
+    }
+  }
+
+  h3 {
+    font-size: 15px;
   }
 }
