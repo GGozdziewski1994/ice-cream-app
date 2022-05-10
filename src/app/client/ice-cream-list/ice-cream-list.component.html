@@ -5,6 +5,9 @@
         <ng-container
           *ngIf="iceCreamList$ | async as iceCreamList; else loader"
         >
+          <ng-container *ngIf="iceCreamList.length === 0">
+            <h3 class="iceCreamList__empty">Brak lodów do zamówienia</h3>
+          </ng-container>
           <app-ice-cream-item
             *ngFor="let iceCream of iceCreamList"
             [iceCream]="iceCream"
