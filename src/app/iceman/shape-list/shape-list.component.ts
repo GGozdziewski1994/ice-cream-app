@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { formArray } from 'src/app/shared/model/formArrat';
 import { ListOptionService } from 'src/app/shared/services/lists-option/lists-option.service';
 
 export interface ResultDatabase {

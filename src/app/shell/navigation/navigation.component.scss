@@ -15,6 +15,9 @@ nav {
       margin-right: 5rem;
       font-weight: bold;
       color: rgb(68, 68, 240);
+      padding: 1rem;
+      border: 2px solid blue;
+      border-radius: 25px;
 
       &:hover {
         color: rgb(8, 8, 189);

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ClientFavsService } from 'src/app/shared/services/client-favs/client-favs.service';
+import { ClientFavouriteIceCreamService } from 'src/app/shared/services/client-favourite-ice-cream/client-favourite-ice-service.service';
 import { ListOptionService } from 'src/app/shared/services/lists-option/lists-option.service';
 
 @Component({
@@ -15,11 +15,12 @@ export class FavoriteIceCreamComponent implements OnInit {
 
   constructor(
     private listOptionService: ListOptionService,
-    private clienFavsSevice: ClientFavsService
+    private clientFavouriteIceCreamService: ClientFavouriteIceCreamService
   ) {}
 
   ngOnInit(): void {
     this.capacityList$ = this.listOptionService.getCapacityListValue();
-    this.favoriteIceCream$ = this.clienFavsSevice.getFavoriteList();
+    this.favoriteIceCream$ =
+      this.clientFavouriteIceCreamService.getFavoriteList();
   }
 }

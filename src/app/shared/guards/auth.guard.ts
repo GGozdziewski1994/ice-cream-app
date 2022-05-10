@@ -5,12 +5,12 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { AppState } from 'src/app/store/app.state';
 
-const selectIsAuth = (state: AppState) => state.auth.isAuth;
-
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
+  private selectIsAuth = (state: AppState) => state.auth.isAuthenticated;
+
   constructor(private router: Router, private store: Store<AppState>) {}
 
   public canActivate():
@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.store.select(selectIsAuth).pipe(
+    return this.store.select(this.selectIsAuth).pipe(
       filter((isAuth) => isAuth),
       map((isAuth) => {
         if (isAuth) {

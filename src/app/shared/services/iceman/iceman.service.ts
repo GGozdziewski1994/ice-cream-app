@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { map, take } from 'rxjs';
-import { UserOrder } from '../../model/userOrde';
+import { UserOrder } from '../../model/userOrder';
 
 @Injectable({
   providedIn: 'root',

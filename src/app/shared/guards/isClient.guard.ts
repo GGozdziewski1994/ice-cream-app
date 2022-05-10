@@ -5,12 +5,11 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { AppState } from 'src/app/store/app.state';
 
-const selectIsClient = (state: AppState) => state.isLogged.isClient;
-
 @Injectable({
   providedIn: 'root',
 })
-export class isClientGuard implements CanActivate {
+export class IsClientGuard implements CanActivate {
+  private selectIsClient = (state: AppState) => state.isLogged.isClient;
   constructor(private store: Store<AppState>, private router: Router) {}
 
   canActivate():
@@ -18,7 +17,7 @@ export class isClientGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.store.select(selectIsClient).pipe(
+    return this.store.select(this.selectIsClient).pipe(
       filter((isClient) => isClient),
       map((isClient) => {
         if (isClient) {

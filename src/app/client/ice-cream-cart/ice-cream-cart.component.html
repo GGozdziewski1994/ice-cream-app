@@ -7,7 +7,7 @@
             <h3 class="iceCream__name">{{ order.name }}</h3>
             <div class="iceCream__summary">
               <span class="iceCream__capacity"
-                >Capacity: {{ order.capacity }}</span
+                >Kubełek: {{ order.capacity }} kg</span
               >
               <span class="iceCream__amount">X {{ order.amount }}</span>
             </div>
@@ -35,8 +35,11 @@
       <span>Całkowite zamówienia</span>
       <span>{{ total$ | async }}</span>
     </div>
-    <div *ngIf="isShipped$ | async" class="placed">
+    <div *ngIf="isShipped$ | async" class="info">
       <h3>Dzisiaj już złożyłeś swoje zamówienie. Wróć jutro.</h3>
+    </div>
+    <div *ngIf="!(isShipped$ | async)" class="info">
+      <h3>Zapamiętaj. Dziennie możesz złożyć tylko jedno zamówienie</h3>
     </div>
     <div class="actions">
       <button (click)="onClose()" mat-stroked-button color="warn" type="button">

@@ -10,8 +10,7 @@ import { Router } from '@angular/router';
 import { isLoggedActions } from 'src/app/store/isLoggedUser/isLoggedUser.actions';
 import { OrderActions } from 'src/app/store/order/order.actions';
 import { ClientOrderService } from '../client-order/client-order.service';
-import { CLIENT } from '../../model/constanst';
-import { ClientFavsService } from '../client-favs/client-favs.service';
+import { ClientFavouriteIceCreamService } from '../client-favourite-ice-cream/client-favourite-ice-service.service';
 import { OrderState } from 'src/app/store/order/order.state';
 
 @Injectable({
@@ -19,13 +18,14 @@ import { OrderState } from 'src/app/store/order/order.state';
 })
 export class AuthService {
   public userData!: Observable<firebase.default.User | null>;
+  private CLIENT = 'client';
 
   constructor(
     private fireAuth: AngularFireAuth,
     private store: Store<AppState>,
     private router: Router,
     private clientService: ClientOrderService,
-    private clientFavsService: ClientFavsService
+    private clientFavouriteIceCreamService: ClientFavouriteIceCreamService
   ) {
     this.userData = this.fireAuth.authState;
   }
@@ -45,7 +45,7 @@ export class AuthService {
 
           this.setUser(userData);
           this.clientService.initOrder();
-          this.clientFavsService.initFavs();
+          this.clientFavouriteIceCreamService.initFavs();
         }
       })
       .catch((error) => window.alert(error.message));
@@ -68,7 +68,7 @@ export class AuthService {
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         return result.user?.updateProfile({
-          displayName: `${CLIENT}||${name}`,
+          displayName: `${this.CLIENT}||${name}`,
         });
       })
       .catch((error) => window.alert(error.message));
@@ -85,7 +85,7 @@ export class AuthService {
   private setUser(userData: User) {
     localStorage.setItem('userData', JSON.stringify(userData));
     this.store.dispatch(AuthActions.setAuth());
-    if (userData.displayName === CLIENT) {
+    if (userData.displayName === this.CLIENT) {
       this.store.dispatch(isLoggedActions.setIsClient());
       const order: OrderState = JSON.parse(
         localStorage.getItem('order') || '{}'

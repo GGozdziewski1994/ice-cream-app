@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserOrder } from 'src/app/shared/model/userOrde';
+import { UserOrder } from 'src/app/shared/model/userOrder';
 import { IcemanService } from 'src/app/shared/services/iceman/iceman.service';
 
 @Component({

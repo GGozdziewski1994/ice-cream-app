@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { UserOrder } from 'src/app/shared/model/userOrde';
+import { UserOrder } from 'src/app/shared/model/userOrder';
 
 @Component({
   selector: 'app-order-list-item',

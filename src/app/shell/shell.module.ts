@@ -9,8 +9,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ShellComponent } from './shell.component';
 import { HeaderComponent } from './header/header.component';
 import { NavigationComponent } from './navigation/navigation.component';
-import { isClientGuard } from '../shared/guards/isClient.guard';
-import { isIcemanGuard } from '../shared/guards/isIceman.guard';
+import { IsClientGuard } from '../shared/guards/isClient.guard';
+import { IsIcemanGuard } from '../shared/guards/isIceman.guard';
 
 @NgModule({
   declarations: [ShellComponent, HeaderComponent, NavigationComponent],
@@ -27,13 +27,13 @@ import { isIcemanGuard } from '../shared/guards/isIceman.guard';
         children: [
           {
             path: 'iceman',
-            canActivate: [isIcemanGuard],
+            canActivate: [IsIcemanGuard],
             loadChildren: async () =>
               (await import('../iceman/iceman.module')).IcemanModule,
           },
           {
             path: 'client',
-            canActivate: [isClientGuard],
+            canActivate: [IsClientGuard],
             loadChildren: async () =>
               (await import('../client/client.module')).ClientModule,
           },

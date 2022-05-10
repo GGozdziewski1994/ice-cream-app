@@ -7,7 +7,6 @@ import {
   Input,
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { formArray } from '../../model/formArrat';
 
 @Component({
   selector: 'app-form-array',

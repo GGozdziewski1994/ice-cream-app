@@ -8,7 +8,7 @@ import { AuthGuard } from './shared/guards/auth.guard';
       {
         path: 'auth',
         loadChildren: async () =>
-          (await import('./auth/auth.module')).AuthModule,
+          (await import('./login/login.module')).LoginModule,
       },
       {
         path: 'app',

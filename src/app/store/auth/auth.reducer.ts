@@ -3,7 +3,7 @@ import { AuthActions } from './auth.actions';
 import { AuthState } from './auth.state';
 
 const initialState: AuthState = {
-  isAuth: false,
+  isAuthenticated: false,
 };
 
 export const authReducer = createReducer(
@@ -11,13 +11,13 @@ export const authReducer = createReducer(
   on(AuthActions.setAuth, (state) => {
     return {
       ...state,
-      isAuth: true,
+      isAuthenticated: true,
     };
   }),
   on(AuthActions.setNotAuth, (state) => {
     return {
       ...state,
-      isAuth: false,
+      isAuthenticated: false,
     };
   })
 );

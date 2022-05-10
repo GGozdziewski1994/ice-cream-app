@@ -9,7 +9,7 @@ import { User } from '../../model/user';
 @Injectable({
   providedIn: 'root',
 })
-export class ClientFavsService {
+export class ClientFavouriteIceCreamService {
   private favoriteIceCream!: AngularFireList<any>;
   private user!: User;
 

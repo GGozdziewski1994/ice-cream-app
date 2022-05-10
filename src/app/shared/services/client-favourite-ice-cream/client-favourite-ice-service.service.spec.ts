@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ClientFavsService } from './client-favs.service';
+import { ClientFavouriteIceCreamService } from './client-favourite-ice-service.service';
 
 describe('ClientFavsService', () => {
-  let service: ClientFavsService;
+  let service: ClientFavouriteIceCreamService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ClientFavsService);
+    service = TestBed.inject(ClientFavouriteIceCreamService);
   });
 
   it('should be created', () => {

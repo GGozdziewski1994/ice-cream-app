@@ -12,7 +12,7 @@ import { AppState } from 'src/app/store/app.state';
 export class NavigationComponent implements OnInit {
   public isClient$ = this.store.select((state) => state.isLogged.isClient);
   public routingListIceman = [
-    { link: 'iceman/config', title: 'Konfiguracja możliwości' },
+    { link: 'iceman/config', title: 'Oferta fabryki lodów' },
     { link: 'iceman/new-client', title: 'Dodaj nowego klienta' },
   ];
   public routingListClient = [
