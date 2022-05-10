@@ -4,7 +4,7 @@
       <div>
         <mat-form-field>
           <mat-label>{{ labelName }}</mat-label>
-          <input formControlName="name" matInput type="text" />
+          <input formControlName="name" matInput [type]="type" />
           <button
             (click)="onRemoveFormArray(i)"
             type="button"

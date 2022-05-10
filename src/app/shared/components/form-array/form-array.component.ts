@@ -6,7 +6,7 @@ import {
   EventEmitter,
   Input,
 } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { formArray } from '../../model/formArrat';
 
 @Component({
@@ -18,6 +18,7 @@ import { formArray } from '../../model/formArrat';
 export class FormArrayComponent implements OnInit {
   @Output() public formEmmit = new EventEmitter<formArray[]>();
   @Input() public labelName!: string;
+  @Input() public type!: string;
   public form!: FormGroup;
 
   ngOnInit(): void {
@@ -33,7 +34,11 @@ export class FormArrayComponent implements OnInit {
   public onAddFormArray() {
     (<FormArray>this.form.get('name')).push(
       new FormGroup({
-        name: new FormControl(null),
+        name: new FormControl(null, [
+          this.type === 'number'
+            ? Validators.pattern('^[0-9]*$')
+            : Validators.minLength(3),
+        ]),
       })
     );
   }

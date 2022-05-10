@@ -35,7 +35,7 @@
       <span>Całkowite zamówienia</span>
       <span>{{ total$ | async }}</span>
     </div>
-    <div class="placed">
+    <div *ngIf="isShipped$ | async" class="placed">
       <h3>Dzisiaj już złożyłeś swoje zamówienie. Wróć jutro.</h3>
     </div>
     <div class="actions">

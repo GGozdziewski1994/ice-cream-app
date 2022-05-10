@@ -22,6 +22,7 @@
       </mat-chip-list>
       <app-form-array
         [labelName]="'Podaj smak'"
+        [type]="'text'"
         (formEmmit)="onSubmitIceCream($event)"
       ></app-form-array>
     </div>
@@ -44,6 +45,7 @@
       </mat-chip-list>
       <app-form-array
         [labelName]="'Pojemność w kg'"
+        [type]="'number'"
         (formEmmit)="onSubmitCapacity($event)"
       ></app-form-array>
     </div>
