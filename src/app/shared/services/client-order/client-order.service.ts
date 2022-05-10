@@ -13,15 +13,12 @@ import { UserOrder } from '../../model/userOrde';
 @Injectable({
   providedIn: 'root',
 })
-export class ClientService {
-  private iceCreamRef!: AngularFireList<any>;
-  private capacityRef!: AngularFireList<any>;
-  private favoriteIceCream!: AngularFireList<any>;
+export class ClientOrderService {
   private lastOrder!: AngularFireList<any>;
   private user!: User;
 
   constructor(private db: AngularFireDatabase, private store: Store) {
-    this.init();
+    this.initOrder();
   }
 
   public checkShippedOrder() {
@@ -70,41 +67,8 @@ export class ClientService {
     this.lastOrder.push(order);
   }
 
-  public getIceCreamListName() {
-    return this.iceCreamRef.valueChanges();
-  }
-
-  public getCapacityListValue() {
-    return this.capacityRef.valueChanges();
-  }
-
-  public getFavoriteIceCream() {
-    return this.favoriteIceCream.snapshotChanges().pipe(
-      map((el) =>
-        el.map((ice) => {
-          return { key: ice.key, name: ice.payload.val() };
-        })
-      )
-    );
-  }
-
-  public getFavoriteList() {
-    return this.favoriteIceCream.valueChanges();
-  }
-
-  public addIceCreamToFavorite(iceCream: string) {
-    return this.favoriteIceCream.push(iceCream);
-  }
-
-  public removeIceCreamToFavorite(iceCream: string) {
-    return this.favoriteIceCream.remove(iceCream);
-  }
-
-  public init() {
-    this.iceCreamRef = this.db.list('ice-cream-option');
-    this.capacityRef = this.db.list('capacity-option');
+  public initOrder() {
     this.user = JSON.parse(localStorage.getItem('userData') || '{}');
-    this.favoriteIceCream = this.db.list(`users/${this.user.uid}/favorite`);
     this.lastOrder = this.db.list(`users/${this.user.uid}/order`);
   }
 

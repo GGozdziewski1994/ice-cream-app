@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { formArray } from 'src/app/shared/model/formArrat';
-import { IcemanService } from '../../shared/services/iceman/iceman.service';
+import { ListOptionService } from 'src/app/shared/services/lists-option/lists-option.service';
 
 export interface ResultDatabase {
   payload: {
@@ -20,11 +20,14 @@ export class ShapeListComponent implements OnInit {
   public iceCreamOptions$!: Observable<any>;
   public capacityOptions$!: Observable<any>;
 
-  constructor(private icemanService: IcemanService, private router: Router) {}
+  constructor(
+    private listOptionService: ListOptionService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.iceCreamOptions$ = this.icemanService.getIceCreamList();
-    this.capacityOptions$ = this.icemanService.getCapacityList();
+    this.iceCreamOptions$ = this.listOptionService.getIceCreamList();
+    this.capacityOptions$ = this.listOptionService.getCapacityList();
   }
 
   public onClose() {
@@ -34,7 +37,7 @@ export class ShapeListComponent implements OnInit {
   public onSubmitIceCream(form: formArray[]) {
     form.forEach((iceCream) => {
       for (let value of Object.values(iceCream)) {
-        this.icemanService.addIceCreamToList(value);
+        this.listOptionService.addIceCreamToList(value);
       }
     });
   }
@@ -42,16 +45,16 @@ export class ShapeListComponent implements OnInit {
   public onSubmitCapacity(form: formArray[]) {
     form.forEach((capacity) => {
       for (let value of Object.values(capacity)) {
-        this.icemanService.addCapacityToList(value);
+        this.listOptionService.addCapacityToList(value);
       }
     });
   }
 
   public onRemoveIceCream(iceCream: string) {
-    this.icemanService.removeIceCream(iceCream);
+    this.listOptionService.removeIceCream(iceCream);
   }
 
   public onRemoveCapacity(capacity: string) {
-    this.icemanService.removeCapacity(capacity);
+    this.listOptionService.removeCapacity(capacity);
   }
 }

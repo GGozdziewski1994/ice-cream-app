@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ClientService } from '../shared/services/client/client.service';
+import { ClientOrderService } from '../shared/services/client-order/client-order.service';
 
 @Component({
   selector: 'app-client',
@@ -8,7 +8,7 @@ import { ClientService } from '../shared/services/client/client.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClientComponent implements OnInit {
-  constructor(private clientService: ClientService) {}
+  constructor(private clientService: ClientOrderService) {}
 
   ngOnInit(): void {
     this.clientService.checkShippedOrder();

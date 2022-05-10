@@ -5,7 +5,7 @@ import { AppState } from 'src/app/store/app.state';
 import { Observable, take } from 'rxjs';
 import { Order } from 'src/app/shared/model/order';
 import { OrderActions } from 'src/app/store/order/order.actions';
-import { ClientService } from 'src/app/shared/services/client/client.service';
+import { ClientOrderService } from 'src/app/shared/services/client-order/client-order.service';
 @Component({
   selector: 'app-ice-cream-cart',
   templateUrl: './ice-cream-cart.component.html',
@@ -20,7 +20,7 @@ export class IceCreamCartComponent implements OnInit {
   constructor(
     private location: Location,
     private store: Store<AppState>,
-    private clientService: ClientService
+    private clientService: ClientOrderService
   ) {}
 
   ngOnInit(): void {

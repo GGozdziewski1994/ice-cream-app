@@ -9,8 +9,10 @@ import { AuthActions } from '../../../store/auth/auth.actions';
 import { Router } from '@angular/router';
 import { isLoggedActions } from 'src/app/store/isLoggedUser/isLoggedUser.actions';
 import { OrderActions } from 'src/app/store/order/order.actions';
-import { ClientService } from '../client/client.service';
+import { ClientOrderService } from '../client-order/client-order.service';
 import { CLIENT } from '../../model/constanst';
+import { ClientFavsService } from '../client-favs/client-favs.service';
+import { OrderState } from 'src/app/store/order/order.state';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +24,8 @@ export class AuthService {
     private fireAuth: AngularFireAuth,
     private store: Store<AppState>,
     private router: Router,
-    private clientService: ClientService
+    private clientService: ClientOrderService,
+    private clientFavsService: ClientFavsService
   ) {
     this.userData = this.fireAuth.authState;
   }
@@ -41,7 +44,8 @@ export class AuthService {
           };
 
           this.setUser(userData);
-          this.clientService.init();
+          this.clientService.initOrder();
+          this.clientFavsService.initFavs();
         }
       })
       .catch((error) => window.alert(error.message));
@@ -83,8 +87,13 @@ export class AuthService {
     this.store.dispatch(AuthActions.setAuth());
     if (userData.displayName === CLIENT) {
       this.store.dispatch(isLoggedActions.setIsClient());
-      const order = JSON.parse(localStorage.getItem('order') || '{}');
-      this.store.dispatch(OrderActions.addAllOrder(order));
+      const order: OrderState = JSON.parse(
+        localStorage.getItem('order') || '{}'
+      );
+      if (order.iceCream) {
+        this.store.dispatch(OrderActions.addAllOrder(order));
+      }
+
       this.router.navigate(['app/client']);
     } else {
       this.store.dispatch(isLoggedActions.setIsIceman());

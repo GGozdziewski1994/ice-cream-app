@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFireDatabase,
-  AngularFireList,
-} from '@angular/fire/compat/database';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { map, take } from 'rxjs';
 import { UserOrder } from '../../model/userOrde';
 
@@ -10,13 +7,7 @@ import { UserOrder } from '../../model/userOrde';
   providedIn: 'root',
 })
 export class IcemanService {
-  private iceCreamRef!: AngularFireList<any>;
-  private capacityRef!: AngularFireList<any>;
-
-  constructor(private db: AngularFireDatabase) {
-    this.iceCreamRef = this.db.list('ice-cream-option');
-    this.capacityRef = this.db.list('capacity-option');
-  }
+  constructor(private db: AngularFireDatabase) {}
 
   public getOrdersList() {
     const date = this.getDate();
@@ -34,30 +25,6 @@ export class IcemanService {
           })
         )
       );
-  }
-
-  public getIceCreamList() {
-    return this.iceCreamRef.snapshotChanges();
-  }
-
-  public getCapacityList() {
-    return this.capacityRef.snapshotChanges();
-  }
-
-  public addIceCreamToList(iceCream: string) {
-    this.iceCreamRef.push(iceCream);
-  }
-
-  public addCapacityToList(capacity: string) {
-    this.capacityRef.push(capacity);
-  }
-
-  public removeIceCream(iceCream: string) {
-    this.iceCreamRef.remove(iceCream);
-  }
-
-  public removeCapacity(capacity: string) {
-    this.capacityRef.remove(capacity);
   }
 
   private getDate() {

@@ -9,7 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Order } from 'src/app/shared/model/order';
-import { ClientService } from 'src/app/shared/services/client/client.service';
+import { ClientFavsService } from 'src/app/shared/services/client-favs/client-favs.service';
 import { AppState } from 'src/app/store/app.state';
 import { OrderActions } from 'src/app/store/order/order.actions';
 
@@ -30,12 +30,12 @@ export class IceCreamItemComponent implements OnInit, OnDestroy {
 
   constructor(
     private sotre: Store<AppState>,
-    private clientService: ClientService
+    private clientFavsService: ClientFavsService
   ) {}
 
   ngOnInit(): void {
     this.initOrderForm();
-    this.subscribction = this.clientService
+    this.subscribction = this.clientFavsService
       .getFavoriteIceCream()
       .subscribe((ice) => (this.favoriteList = ice));
   }
@@ -62,9 +62,9 @@ export class IceCreamItemComponent implements OnInit, OnDestroy {
     const iceCream = this.favoriteList[index];
 
     if (iceCream && this.isFavorite) {
-      this.clientService.removeIceCreamToFavorite(iceCream.key);
+      this.clientFavsService.removeIceCreamToFavorite(iceCream.key);
     } else if (!iceCream && this.favoriteList) {
-      this.clientService.addIceCreamToFavorite(name);
+      this.clientFavsService.addIceCreamToFavorite(name);
     }
   }
 
