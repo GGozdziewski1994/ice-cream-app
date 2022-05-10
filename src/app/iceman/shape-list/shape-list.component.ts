@@ -19,6 +19,8 @@ export interface ResultDatabase {
 export class ShapeListComponent implements OnInit {
   public iceCreamOptions$!: Observable<any>;
   public capacityOptions$!: Observable<any>;
+  public iceCreamName$!: Observable<string[]>;
+  public capacityValue$!: Observable<string[]>;
 
   constructor(
     private listOptionService: ListOptionService,
@@ -28,26 +30,20 @@ export class ShapeListComponent implements OnInit {
   ngOnInit(): void {
     this.iceCreamOptions$ = this.listOptionService.getIceCreamList();
     this.capacityOptions$ = this.listOptionService.getCapacityList();
+    this.iceCreamName$ = this.listOptionService.getIceCreamListName();
+    this.capacityValue$ = this.listOptionService.getCapacityListValue();
   }
 
   public onClose() {
     this.router.navigate(['app/iceman']);
   }
 
-  public onSubmitIceCream(form: formArray[]) {
-    form.forEach((iceCream) => {
-      for (let value of Object.values(iceCream)) {
-        this.listOptionService.addIceCreamToList(value);
-      }
-    });
+  public onSubmitIceCream(value: string) {
+    this.listOptionService.addIceCreamToList(value);
   }
 
-  public onSubmitCapacity(form: formArray[]) {
-    form.forEach((capacity) => {
-      for (let value of Object.values(capacity)) {
-        this.listOptionService.addCapacityToList(value);
-      }
-    });
+  public onSubmitCapacity(value: string) {
+    this.listOptionService.addCapacityToList(value);
   }
 
   public onRemoveIceCream(iceCream: string) {

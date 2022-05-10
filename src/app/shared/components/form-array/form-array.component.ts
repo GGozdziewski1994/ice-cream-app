@@ -16,9 +16,10 @@ import { formArray } from '../../model/formArrat';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormArrayComponent implements OnInit {
-  @Output() public formEmmit = new EventEmitter<formArray[]>();
+  @Output() public formEmmit = new EventEmitter<string>();
   @Input() public labelName!: string;
   @Input() public type!: string;
+  @Input() public options!: string[];
   public form!: FormGroup;
 
   ngOnInit(): void {
@@ -26,7 +27,16 @@ export class FormArrayComponent implements OnInit {
   }
 
   public onSubmit() {
-    this.formEmmit.emit(this.form.value.name);
+    const values: { name: string }[] = this.form.value.name;
+    for (let value of values) {
+      if (
+        this.options
+          .map((el) => el.toLowerCase())
+          .includes(value.name.toLowerCase())
+      )
+        return;
+      else this.formEmmit.emit(value.name);
+    }
 
     this.initForm();
   }

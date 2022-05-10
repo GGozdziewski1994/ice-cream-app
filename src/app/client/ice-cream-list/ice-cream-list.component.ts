@@ -9,8 +9,8 @@ import { ListOptionService } from 'src/app/shared/services/lists-option/lists-op
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IceCreamListComponent implements OnInit {
-  public iceCreamList$!: Observable<any>;
-  public capacityList$!: Observable<any>;
+  public iceCreamList$!: Observable<string[]>;
+  public capacityList$!: Observable<string[]>;
 
   constructor(private listOptionService: ListOptionService) {}
 

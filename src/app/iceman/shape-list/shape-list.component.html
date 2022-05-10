@@ -20,11 +20,14 @@
           </button>
         </mat-chip>
       </mat-chip-list>
-      <app-form-array
-        [labelName]="'Podaj smak'"
-        [type]="'text'"
-        (formEmmit)="onSubmitIceCream($event)"
-      ></app-form-array>
+      <ng-container *ngIf="iceCreamName$ | async as iceCreamName">
+        <app-form-array
+          [labelName]="'Podaj smak'"
+          [type]="'text'"
+          [options]="iceCreamName"
+          (formEmmit)="onSubmitIceCream($event)"
+        ></app-form-array>
+      </ng-container>
     </div>
     <div class="container__item">
       <mat-card-title>Pojemność lodów (kg)</mat-card-title>
@@ -43,11 +46,14 @@
           </button>
         </mat-chip>
       </mat-chip-list>
-      <app-form-array
-        [labelName]="'Pojemność w kg'"
-        [type]="'number'"
-        (formEmmit)="onSubmitCapacity($event)"
-      ></app-form-array>
+      <ng-container *ngIf="capacityValue$ | async as capacityValue">
+        <app-form-array
+          [labelName]="'Pojemność w kg'"
+          [type]="'number'"
+          [options]="capacityValue"
+          (formEmmit)="onSubmitCapacity($event)"
+        ></app-form-array>
+      </ng-container>
     </div>
   </div>
   <div class="actions">

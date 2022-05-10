@@ -54,8 +54,8 @@ export class ClientOrderService {
         })
       )
       .subscribe((arrayOrder) => {
-        arrayOrder.flatMap((orders) => {
-          orders.map((order: Order) => {
+        arrayOrder.flatMap((orders: Order[]) => {
+          orders.map((order) => {
             this.store.dispatch(OrderActions.addOrder(order));
           });
         });
