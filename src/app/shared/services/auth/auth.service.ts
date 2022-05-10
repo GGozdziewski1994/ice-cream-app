@@ -83,6 +83,8 @@ export class AuthService {
     this.store.dispatch(AuthActions.setAuth());
     if (userData.displayName === CLIENT) {
       this.store.dispatch(isLoggedActions.setIsClient());
+      const order = JSON.parse(localStorage.getItem('order') || '{}');
+      this.store.dispatch(OrderActions.addAllOrder(order));
       this.router.navigate(['app/client']);
     } else {
       this.store.dispatch(isLoggedActions.setIsIceman());

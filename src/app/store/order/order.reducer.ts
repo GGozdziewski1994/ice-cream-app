@@ -27,10 +27,23 @@ export const orderReducer = createReducer(
     } else {
       updatedIceCrames = state.iceCream.concat(action);
     }
-    return {
+    const order = {
       ...state,
       iceCream: updatedIceCrames,
       total: state.total + action.amount,
+    };
+
+    localStorage.removeItem('order');
+    localStorage.setItem('order', JSON.stringify(order));
+
+    return order;
+  }),
+
+  on(OrderActions.addAllOrder, (state, action) => {
+    return {
+      ...state,
+      iceCream: action.iceCream,
+      total: action.total,
     };
   }),
 
@@ -53,14 +66,20 @@ export const orderReducer = createReducer(
       updatedIceCrames[existingCartIceCreamIndex] = updatedIceCrame;
     }
 
-    return {
+    const order = {
       ...state,
       iceCream: updatedIceCrames,
       total: state.total - 1,
     };
+
+    localStorage.removeItem('order');
+    localStorage.setItem('order', JSON.stringify(order));
+
+    return order;
   }),
 
   on(OrderActions.clearOreder, () => {
+    localStorage.removeItem('order');
     return {
       iceCream: [],
       total: 0,
