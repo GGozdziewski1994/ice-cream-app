@@ -18,7 +18,12 @@
     </div>
   </div>
   <div *ngIf="form.value.name.length > 0">
-    <button mat-raised-button color="primary" type="submit">
+    <button
+      [disabled]="form.invalid"
+      mat-raised-button
+      color="primary"
+      type="submit"
+    >
       <mat-icon>add</mat-icon>
     </button>
   </div>

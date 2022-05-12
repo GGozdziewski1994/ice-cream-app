@@ -28,6 +28,7 @@ export class FormArrayComponent implements OnInit {
   public onSubmit() {
     const values: { name: string }[] = this.form.value.name;
     for (let value of values) {
+      if (value.name === null || value.name < '1') return;
       if (
         this.options
           .map((el) => el.toLowerCase())
@@ -44,6 +45,8 @@ export class FormArrayComponent implements OnInit {
     (<FormArray>this.form.get('name')).push(
       new FormGroup({
         name: new FormControl(null, [
+          Validators.required,
+          Validators.min(1),
           this.type === 'number'
             ? Validators.pattern('^[0-9]*$')
             : Validators.minLength(3),
